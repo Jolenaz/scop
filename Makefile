@@ -1,4 +1,4 @@
-NAME = scop
+NAME = wordProScop
 
 #==============#
 #_- Compiler -_#
