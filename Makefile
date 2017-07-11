@@ -66,7 +66,7 @@ SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 INC = $(addprefix -I, $(INC_PATH))
-LIB = -L $(LIB_PATH) -lft
+LIB = -L ./libft/ -lft -L ./mlx/ -lmlx -framework OpenGL -framework AppKit
 
 #===========#
 #_- Rules -_#
@@ -75,7 +75,7 @@ all: $(NAME)
 
 #	linking
 $(OBJ_PATH)%.o:  $(SRC_PATH)%.c
-	@$(call cmd_color,$(LINK_COLOR),$(CC) $(CFLAGS) $(INC) -o $@ -c $<)
+	@$(call cmd_color,$(LINK_COLOR),$(CC) $(CFLAGS) $(INC)  -o $@ -c $< )
 
 #	preLinking
 $(OBJ_PATH):
