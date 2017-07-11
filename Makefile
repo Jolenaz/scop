@@ -15,7 +15,7 @@ MAKE = make -sC
 
 SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
-INC_PATH = ./include/
+INC_PATH = ./includes/
 LIB_PATH = ./libft/
 
 #===========#
