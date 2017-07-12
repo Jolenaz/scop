@@ -57,7 +57,7 @@ SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
 INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2
-LIB = -L/Users/jbelless/.brew/lib -lSDL2
+LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL
 
 #===========#
 #_- Rules -_#

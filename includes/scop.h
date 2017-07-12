@@ -14,6 +14,7 @@
 # define SCOP_H
 
 # include <SDL.h>
+# include <OpenGL/gl3.h>
 # include <stdio.h>
  
 
