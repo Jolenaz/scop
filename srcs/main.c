@@ -15,12 +15,4 @@
   
 int main(){
 
-    void *wd = mlx_init();
-    void *op_wd = mlx_new_opengl_window(wd, 1000, 1000, "lala putin de ta race");
-
-    mlx_loop(wd);
-
-    return 0;
-
-    free(op_wd);
 }

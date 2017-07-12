@@ -7,7 +7,6 @@ NAME = wordProScop
 CC = gcc
 CFLAGS = -Werror -Wall -Wextra -g
 RM = rm -rf
-MAKE = make -sC
 
 #====================#
 #_- Programes Path -_#
@@ -16,7 +15,6 @@ MAKE = make -sC
 SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
 INC_PATH = ./includes/
-LIB_PATH = ./libft/
 
 #===========#
 #_- Color -_#
@@ -38,16 +36,9 @@ MAKE_COLOR = 47
 MAKE_ALREADY = 140
 MAKE_FAIL = 9
 
-NORME_COLOR = 47
-NORME_COLOR_ERR = 9
-NORME_COLOR_WAR = 196
-
 #==============#
 #_- Fonction -_#
 #==============#
-
-cmd_make = echo "\033[38;5;$(MAKE_COLOR)m$(MAKE) $(1)\033[0m"; \
-		   $(MAKE) $(1)
 
 cmd_color = echo "\033[38;5;$(1)m$(2)\033[0m"; \
 			$(2)
@@ -65,8 +56,8 @@ OBJ_NAME = $(SRC_NAME:.c=.o)
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-INC = $(addprefix -I, $(INC_PATH))
-LIB = -L ./libft/ -lft -L ./mlx/ -lmlx -framework OpenGL -framework AppKit
+INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2
+LIB = -L/Users/jbelless/.brew/lib -lSDL2
 
 #===========#
 #_- Rules -_#
