@@ -14,26 +14,27 @@
   
 int main(){
 
-SDL_Event evenements;
+t_env   *env;
+
+env = init_world();
+
 int terminer = 0;
 if (SDL_Init(SDL_INIT_VIDEO) == -1)
 {
     fprintf(stderr,"Error: chargement de SDL");
     return (0);
 }
-SDL_Window* mainWindow = NULL;
-SDL_GLContext mainContext;
 
 float vertices[] = {-0.5, -0.5,   0.0, 0.5,   0.5, -0.5};
 
-mainWindow = SDL_CreateWindow("une fenetre",
+env->mainWindow = SDL_CreateWindow("une fenetre",
     SDL_WINDOWPOS_CENTERED,
     SDL_WINDOWPOS_CENTERED,
     640,
     480,
     SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
-mainContext = SDL_GL_CreateContext(mainWindow);
+env->mainContext = SDL_GL_CreateContext(env->mainWindow);
 
 SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // use new opengl
 SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
@@ -55,15 +56,12 @@ while(!terminer)
     glDisableVertexAttribArray(0);
 
     
-    SDL_GL_SwapWindow(mainWindow);
+    SDL_GL_SwapWindow(env->mainWindow);
 
-    SDL_WaitEvent(&evenements);
-    if(evenements.key.keysym.sym == SDLK_c)
+    SDL_WaitEvent(&(env->evenements));
+    if((env->evenements).key.keysym.sym == SDLK_c)
         terminer = 1;
 }
-
-SDL_GL_DeleteContext(mainContext);
-SDL_DestroyWindow(mainWindow);
 
 SDL_Quit();
 return (0);

@@ -16,7 +16,12 @@
 # include <SDL.h>
 # include <OpenGL/gl3.h>
 # include <stdio.h>
- 
+# include <math.h>
+
+# include "struct.h"
+
+# include "functions.h"
+
 
 
 #endif
