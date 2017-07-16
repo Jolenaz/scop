@@ -79,10 +79,11 @@ typedef struct s_obj{
 }           t_obj;
 
 typedef struct  s_env{
-    t_cam           camera;
+    t_cam           *camera;
     SDL_Window      *mainWindow;
     SDL_GLContext   mainContext;
     SDL_Event       evenements;
+    t_obj           *objets;
 }               t_env;
 
 #endif

@@ -56,7 +56,7 @@ t_vec3 *matrixMult31(t_mat3 A, t_vec3 B)
 {
     t_vec3 *ret;
 
-    ret = (t_mat3*)malloc(sizeof(t_mat3));
+    ret = (t_vec3*)malloc(sizeof(t_vec3));
     ret->x = A._00 * B.x + A._01 * B.y + A._02 * B.z;
     ret->y = A._10 * B.x + A._11 * B.y + A._12 * B.z;
     ret->z = A._20 * B.x + A._21 * B.y + A._22 * B.z;
