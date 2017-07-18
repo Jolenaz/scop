@@ -17,6 +17,7 @@ int main(){
 t_env   *env;
 
 env = init_world();
+init_shader(env);
 
 int terminer = 0;
 if (SDL_Init(SDL_INIT_VIDEO) == -1)

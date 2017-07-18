@@ -83,6 +83,7 @@ typedef struct  s_env{
     SDL_Window      *mainWindow;
     SDL_GLContext   mainContext;
     SDL_Event       evenements;
+    GLuint          *shaders;
     t_obj           *objets;
 }               t_env;
 

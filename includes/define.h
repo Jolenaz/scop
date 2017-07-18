@@ -1,29 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   scop.h                                             :+:      :+:    :+:   */
+/*   define.h                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/11 16:10:34 by jbelless          #+#    #+#             */
-/*   Updated: 2017/07/12 10:50:40 by jbelless         ###   ########.fr       */
+/*   Created: 2017/07/18 14:11:46 by jbelless          #+#    #+#             */
+/*   Updated: 2017/07/18 14:14:23 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef SCOP_H
-# define SCOP_H
+#ifndef DEFINE_H
+# define DEFINE_H
+# define NB_SHADERS 2
 
-# include <SDL.h>
-# include <OpenGL/gl3.h>
-# include <stdio.h>
-# include <math.h>
-
-# include "struct.h"
-
-# include "functions.h"
-
-# include "define.h"
-
-
+const char g_shaders[] = {
+	"../shaders/empty.vert",
+	"../shaders/empty.frag"
+};
 
 #endif
