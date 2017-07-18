@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_world.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/07/18 15:04:53 by jbelless          #+#    #+#             */
+/*   Updated: 2017/07/18 15:04:56 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
 t_vec3 init_vec3(float x, float y, float z)
@@ -46,6 +58,21 @@ t_cam *init_cam()
     return ret;
 }
 
+GLuint *init_shader()
+{
+	GLuint *res;
+	int i;
+
+	i = 0;
+	res = (GLuint*)malloc(sizeof(GLuint) * NB_SHADERS);
+	while(i < NB_SHADERS)
+	{
+		res[i] = glCreateShader(g_shaders_type[i]);
+		++i;
+	}
+	return res;
+}
+
 t_env   *init_world()
 {
     t_env *ret;
@@ -53,6 +80,7 @@ t_env   *init_world()
     ret = (t_env*)malloc(sizeof(t_env));
     ret->objets  = demo_cube();
     ret->camera = init_cam();
+	ret->shaders = init_shader();
 
     return (ret);
 }

@@ -1,0 +1,10 @@
+{
+    "editor.detectIndentation": false,
+    "editor.insertSpaces": false,
+    "editor.tabSize": 4,
+
+    "files.associations": {
+        "*.frag": "cpp"
+    }
+
+}

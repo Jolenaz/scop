@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jbelless <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/11 16:10:23 by jbelless          #+#    #+#             */
-/*   Updated: 2017/07/11 16:10:26 by jbelless         ###   ########.fr       */
+/*   Created: 2017/07/18 15:04:33 by jbelless          #+#    #+#             */
+/*   Updated: 2017/07/18 15:04:42 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@ int main(){
 t_env   *env;
 
 env = init_world();
-init_shader(env);
 
 int terminer = 0;
 if (SDL_Init(SDL_INIT_VIDEO) == -1)
