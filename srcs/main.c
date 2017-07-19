@@ -27,7 +27,7 @@ void init_SDL(t_env *env)
 		480,
 		SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 
-	env->mainContext = SDL_GL_CreateContext(env->mainWindow);
+	
 
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE); // use new opengl
 
@@ -45,6 +45,9 @@ void init_SDL(t_env *env)
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_BLUE_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_ALPHA_SIZE, 8);
+
+
+	env->mainContext = SDL_GL_CreateContext(env->mainWindow);
 }
 
 int main(){
