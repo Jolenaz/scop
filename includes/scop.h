@@ -17,13 +17,12 @@
 # include <OpenGL/gl3.h>
 # include <stdio.h>
 # include <math.h>
+# include <unistd.h>
 
 # include "struct.h"
 
 # include "functions.h"
 
 # include "define.h"
-
-
 
 #endif

@@ -90,12 +90,33 @@ typedef struct s_obj{
     t_vec3      rot;
 }           t_obj;
 
+enum e_vao_ids {
+	Triangles,
+	NumVAOs 
+	};
+
+enum e_buffer_ids {
+	ArrayBuffer,
+	NumBuffers
+	};
+
+enum e_attrib_ids {
+	vPosition = 0
+	};
+
+typedef struct s_shader_info{
+	GLenum	flag;
+	GLchar*	addr;
+}				t_shader_info;
+
 typedef struct  s_env{
     t_cam           *camera;
     SDL_Window      *mainWindow;
     SDL_GLContext   mainContext;
     SDL_Event       evenements;
-    GLuint          *shaders;
+	GLuint			program;
+	GLuint			vaos[NumVAOs];
+	GLuint 			buffers[NumBuffers];
     t_obj           *objets;
 }               t_env;
 

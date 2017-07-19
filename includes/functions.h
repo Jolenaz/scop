@@ -14,6 +14,7 @@
 # define FUNCTIONS_H
 
 t_env   *init_world();
-void    load_shader(t_env *e);
+void    load_shader(t_env *e, const t_shader_info *s);
+void	create_obj(t_env *e);
 
 #endif

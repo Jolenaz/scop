@@ -12,16 +12,7 @@
 
 #ifndef DEFINE_H
 # define DEFINE_H
+
 # define NB_SHADERS 2
-
-const char *g_shaders[] = {
-	"../shaders/empty.vert",
-	"../shaders/empty.frag"
-};
-
-const GLenum g_shaders_type[] = {
-	GL_VERTEX_SHADER,
-	GL_FRAGMENT_SHADER
-};
 
 #endif
