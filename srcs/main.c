@@ -34,12 +34,6 @@ void init_SDL(t_env *env)
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
 	SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-	int reti;
-	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, &reti);
-	printf("major = %d\n",reti);
-	SDL_GL_GetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, &reti);	
-	printf("minor = %d\n",reti);
-
 	SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
 	SDL_GL_SetAttribute(SDL_GL_RED_SIZE, 8);
 	SDL_GL_SetAttribute(SDL_GL_GREEN_SIZE, 8);
@@ -65,25 +59,24 @@ int main(){
 	env = init_world();
 	init_SDL(env);
 	create_obj(env);
-
 	
-printf("Supported GLSL version is %s.\n", (char *)glGetString(GL_SHADING_LANGUAGE_VERSION));
-
 	load_shader(env, shaders);
-
 
 	glUseProgram(env->program);
 
+	VertexData test;
 
-	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, 0, 0);
+	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), BUFFER_OFFSET(sizeof(test.color)));
 	glEnableVertexAttribArray(vPosition);
+
+	glVertexAttribPointer(vColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(VertexData), BUFFER_OFFSET(0));
+	glEnableVertexAttribArray(vColor);
 
     glClear(GL_COLOR_BUFFER_BIT);
 
-    glBindVertexArray(env->vaos[Triangles]);
 	glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    glDisableVertexAttribArray(0);
+    glDisableVertexAttribArray(vPosition);
 
     SDL_GL_SwapWindow(env->mainWindow);
 

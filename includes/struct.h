@@ -14,74 +14,75 @@
 # define STRUCT_H
 
 typedef struct s_vec2{
-    float x;
-    float y;
+    GLfloat x;
+    GLfloat y;
 }               t_vec2;
 
 typedef struct s_mat2{
-    float _00;
-    float _01;
-    float _10;
-    float _11;
+    GLfloat _00;
+    GLfloat _01;
+    GLfloat _10;
+    GLfloat _11;
 }               t_mat2;
 
 typedef struct s_mat3{
-    float _00;
-    float _01;
-    float _02;
-    float _10;
-    float _11;
-    float _12;
-    float _20;
-    float _21;
-    float _22;
+    GLfloat _00;
+    GLfloat _01;
+    GLfloat _02;
+    GLfloat _10;
+    GLfloat _11;
+    GLfloat _12;
+    GLfloat _20;
+    GLfloat _21;
+    GLfloat _22;
 }               t_mat3;
 
 typedef struct s_mat4{
-    float _00;
-    float _01;
-    float _02;
-    float _03;
-    float _10;
-    float _11;
-    float _12;
-    float _13;
-    float _20;
-    float _21;
-    float _22;
-    float _23;
-    float _30;
-    float _31;
-    float _32;
-    float _33;
+    GLfloat _00;
+    GLfloat _01;
+    GLfloat _02;
+    GLfloat _03;
+    GLfloat _10;
+    GLfloat _11;
+    GLfloat _12;
+    GLfloat _13;
+    GLfloat _20;
+    GLfloat _21;
+    GLfloat _22;
+    GLfloat _23;
+    GLfloat _30;
+    GLfloat _31;
+    GLfloat _32;
+    GLfloat _33;
 }               t_mat4;
 
 typedef struct  s_vec3{
-    float x;
-    float y;
-    float z;
+    GLfloat x;
+    GLfloat y;
+    GLfloat z;
 }               t_vec3;
 
 typedef struct  s_color{
-    float r;
-    float g;
-    float b;
-    float a;
+    GLubyte r;
+    GLubyte g;
+    GLubyte b;
+    GLubyte a;
 }               t_color;
 
 typedef struct s_cam{
     t_vec3  pos;
     t_vec3  rot;
-    float   fov;
-    float   near;
-    float   far;
+    GLfloat   fov;
+    GLfloat   near;
+    GLfloat   far;
 }               t_cam;
 
-typedef struct s_vertex{
+typedef struct	s_vertex{
     t_vec3  pos;
     t_vec3  norm;
-    t_color col;
-}               t_vertex;
+    t_color col; 
+	t_vec2	uv;
+	}			t_vertex;
 
 typedef struct s_obj{
     int         vert_nb;
@@ -101,7 +102,8 @@ enum e_buffer_ids {
 	};
 
 enum e_attrib_ids {
-	vPosition = 0
+	vPosition = 0,
+	vColor = 1
 	};
 
 typedef struct s_shader_info{
@@ -119,5 +121,10 @@ typedef struct  s_env{
 	GLuint 			buffers[NumBuffers];
     t_obj           *objets;
 }               t_env;
+
+typedef struct t_VertexData {
+		GLubyte color[4];
+		GLfloat position[4];
+	}VertexData;
 
 #endif

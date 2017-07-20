@@ -14,5 +14,6 @@
 # define DEFINE_H
 
 # define NB_SHADERS 2
+# define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
 #endif
