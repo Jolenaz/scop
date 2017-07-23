@@ -46,8 +46,6 @@ void init_SDL(t_env *env)
 
 int main(){
 
-
-
 	t_env   *env;
 	const t_shader_info shaders[] = {
 		{ GL_VERTEX_SHADER, "shaders/empty.vert" },
@@ -58,30 +56,90 @@ int main(){
 
 	env = init_world();
 	init_SDL(env);
-	create_obj(env);
+	//create_obj(env);
+
+	static const GLfloat g_vertex_buffer_data[] = {
+		-1.0f, -1.0f, 0.0f,
+		1.0f, -1.0f, 0.0f,
+		0.0f,  1.0f, 0.0f,
+	};
+	GLuint VertexArrayID;
+	glGenVertexArrays(1, &VertexArrayID);
+	glBindVertexArray(VertexArrayID);
+	GLuint vertexbuffer;
+	glGenBuffers(1, &vertexbuffer);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(g_vertex_buffer_data), g_vertex_buffer_data, GL_STATIC_DRAW);
 	
 	load_shader(env, shaders);
 
 	glUseProgram(env->program);
 
-	VertexData test;
+	t_mat4	View;
+	t_mat4	Proj;
+	t_mat4	VP;
+	GLint	VP_index;
 
-	glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), BUFFER_OFFSET(sizeof(test.color)));
-	glEnableVertexAttribArray(vPosition);
+	View = matMult44(matTransInv(env->camera->pos), matRotInv(env->camera->rot));
+	Proj = matProj(env->camera);
+	VP = matMult44(Proj, View);
 
-	glVertexAttribPointer(vColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(VertexData), BUFFER_OFFSET(0));
-	glEnableVertexAttribArray(vColor);
+	printMat4(VP);
 
-    glClear(GL_COLOR_BUFFER_BIT);
+	VP_index = glGetUniformLocation(env->program, "VP");
+	glUniformMatrix4fv(VP_index, 1, GL_FALSE,(const GLfloat *)&VP);
 
-	glDrawArrays(GL_TRIANGLES, 0, 6);
 
-    glDisableVertexAttribArray(vPosition);
+	//VertexData test;
 
-    SDL_GL_SwapWindow(env->mainWindow);
-
+	glEnableVertexAttribArray(0);
+	glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
+	glVertexAttribPointer(
+	0,                  // attribute 0. No particular reason for 0, but must match the layout in the shader.
+	3,                  // size
+	GL_FLOAT,           // type
+	GL_FALSE,           // normalized?
+	0,                  // stride
+	(void*)0            // array buffer offset
+	);
+	// Draw the triangle !
+	glClear(GL_COLOR_BUFFER_BIT);
+	glDrawArrays(GL_TRIANGLES, 0, 3); // Starting from vertex 0; 3 vertices total -> 1 triangle
+	glDisableVertexAttribArray(0);
+	SDL_GL_SwapWindow(env->mainWindow);
 	while(!terminer)
 	{
+		// t_mat4	View;
+		// t_mat4	Proj;
+		// t_mat4	VP;
+		// GLint	VP_index;
+
+		// View = matTransInv(env->camera->pos);
+		// View = matMult44(View, matRotInv(env->camera->rot));
+		// Proj = matProj(env->camera);
+		// VP = matMult44(Proj, View);
+
+		// printMat4(VP);
+
+		// VP_index = glGetUniformLocation(env->program, "VP");
+		// glUniformMatrix4fv(VP_index, 1, GL_FALSE,(const GLfloat *)&VP);
+
+
+		// glVertexAttribPointer(vPosition, 2, GL_FLOAT, GL_FALSE, sizeof(VertexData), BUFFER_OFFSET(0));
+		// glEnableVertexAttribArray(vPosition);
+
+		// glVertexAttribPointer(vColor, 4, GL_UNSIGNED_BYTE, GL_TRUE, sizeof(VertexData), BUFFER_OFFSET(sizeof(test.position)));
+		// glEnableVertexAttribArray(vColor);
+
+		// glClear(GL_COLOR_BUFFER_BIT);
+
+		// glDrawArrays(GL_TRIANGLES, 0, 6);
+
+		// glDisableVertexAttribArray(vPosition);
+		// glDisableVertexAttribArray(vColor);
+
+		// SDL_GL_SwapWindow(env->mainWindow);
+
 		SDL_WaitEvent(&(env->evenements));
 		if((env->evenements).key.keysym.sym == SDLK_c)
 			terminer = 1;

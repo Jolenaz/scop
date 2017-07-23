@@ -39,21 +39,22 @@ typedef struct s_mat3{
 
 typedef struct s_mat4{
     GLfloat _00;
-    GLfloat _01;
-    GLfloat _02;
-    GLfloat _03;
     GLfloat _10;
-    GLfloat _11;
-    GLfloat _12;
-    GLfloat _13;
     GLfloat _20;
-    GLfloat _21;
-    GLfloat _22;
-    GLfloat _23;
     GLfloat _30;
+	GLfloat _01;
+    GLfloat _11;
+    GLfloat _21;
     GLfloat _31;
+	GLfloat _02;
+    GLfloat _12;
+    GLfloat _22;
     GLfloat _32;
+	GLfloat _03;
+    GLfloat _13;
+    GLfloat _23;
     GLfloat _33;
+
 }               t_mat4;
 
 typedef struct  s_vec3{
@@ -61,6 +62,13 @@ typedef struct  s_vec3{
     GLfloat y;
     GLfloat z;
 }               t_vec3;
+
+typedef struct	s_vec4{
+	GLfloat x;
+	GLfloat y;
+	GLfloat z;
+	GLfloat w;
+}				t_vec4;
 
 typedef struct  s_color{
     GLubyte r;
@@ -70,18 +78,19 @@ typedef struct  s_color{
 }               t_color;
 
 typedef struct s_cam{
-    t_vec3  pos;
-    t_vec3  rot;
-    GLfloat   fov;
-    GLfloat   near;
-    GLfloat   far;
+    t_vec3  	pos;
+    t_vec3  	rot;
+    GLfloat		width;
+    GLfloat		height;
+	GLfloat		ratio;
+    GLfloat		near;
+    GLfloat		far;
+    GLfloat		fov;
 }               t_cam;
 
 typedef struct	s_vertex{
     t_vec3  pos;
-    t_vec3  norm;
     t_color col; 
-	t_vec2	uv;
 	}			t_vertex;
 
 typedef struct s_obj{
@@ -123,8 +132,8 @@ typedef struct  s_env{
 }               t_env;
 
 typedef struct t_VertexData {
-		GLubyte color[4];
 		GLfloat position[4];
+		GLubyte color[4];
 	}VertexData;
 
 #endif

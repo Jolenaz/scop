@@ -6,6 +6,9 @@
     "files.associations": {
         "*.frag": "c",
         "*.vert": "c"
-    }
+    },
 
+	"editor.rulers": [
+		80
+	]
 }
