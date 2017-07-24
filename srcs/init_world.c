@@ -26,10 +26,10 @@ t_cam *init_cam()
     t_cam *ret;
 
     ret = (t_cam*)malloc(sizeof(t_cam));
-    ret->pos = init_vec3(7,3,3);
+    ret->pos = init_vec3(0,0,2);
     ret->rot = init_vec3(0.0,0.0,0.0);
     ret->width = 640;
-	ret->fov = 45 / 180.0f * M_PI;
+	ret->fov = 45.0f / 180.0f * M_PI;
 	ret->ratio = 4.0/3.0;
 	ret->height = ret->width / ret->ratio;
     ret->near = 0.1;

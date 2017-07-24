@@ -59,12 +59,12 @@ void printMat4(t_mat4 A)
 t_mat4	matRotInv(t_vec3 rot)
 {
 	t_mat4 ret;
-	const float coX = cos(-rot.x / M_PI * 180);
-	const float siX = sin(-rot.x / M_PI * 180);
-	const float coY = cos(-rot.y / M_PI * 180);
-	const float siY = sin(-rot.y / M_PI * 180);
-	const float coZ = cos(-rot.z / M_PI * 180);
-	const float siZ = sin(-rot.z / M_PI * 180);
+	const float coX = cos(-rot.x * M_PI / 180.0f);
+	const float siX = sin(-rot.x * M_PI / 180.0f);
+	const float coY = cos(-rot.y * M_PI / 180.0f);
+	const float siY = sin(-rot.y * M_PI / 180.0f);
+	const float coZ = cos(-rot.z * M_PI / 180.0f);
+	const float siZ = sin(-rot.z * M_PI / 180.0f);
 	
 	initMat4(&ret);
 	ret._00 = coY * coZ;
@@ -83,16 +83,16 @@ t_mat4	matRotInv(t_vec3 rot)
 t_mat4	matRot(t_vec3 rot)
 {
 	t_mat4 ret;
-	const float coX = cos(rot.x / M_PI * 180);
-	const float siX = sin(rot.x / M_PI * 180);
-	const float coY = cos(rot.y / M_PI * 180);
-	const float siY = sin(rot.y / M_PI * 180);
-	const float coZ = cos(rot.z / M_PI * 180);
-	const float siZ = sin(rot.z / M_PI * 180);
+	const float coX = cos(rot.x * M_PI / 180.0f);
+	const float siX = sin(rot.x * M_PI / 180.0f);
+	const float coY = cos(rot.y * M_PI / 180.0f);
+	const float siY = sin(rot.y * M_PI / 180.0f);
+	const float coZ = cos(rot.z * M_PI / 180.0f);
+	const float siZ = sin(rot.z * M_PI / 180.0f);
 	
 	initMat4(&ret);
 	ret._00 = coY * coZ;
-	ret._01 = -coZ * siY * siX-siZ * coX;
+	ret._01 = -coZ * siY * siX - siZ * coX;
 	ret._02 = -coZ * siY * coX + siX * siZ;
 	ret._10 = coY * siZ;
 	ret._11 = -siZ * siY * siX + coX * coZ;
@@ -165,8 +165,10 @@ t_mat4 matProj(t_cam *cam)
 	t_mat4 res;
 
 	initMat4(&res);
-	res._00 = cam->fov;
-	res._11 = cam->fov / cam->ratio;;
+	if (cam->fov == 0 || cam->ratio == 0 || cam->far == cam->near)
+		return(res);
+	res._00 = 1 / tan(cam->fov / 2.0f);
+	res._11 = res._00;
 	res._22 = -(cam->far + cam->near) / (cam->far - cam->near);
 	res._32 = -1;
 	res._23 = -2 * cam->far * cam->near / (cam->far - cam->near);
@@ -180,8 +182,8 @@ t_mat4 matProj(t_cam *cam)
 // 	initMat4(&res);
 // 	if (cam->width == 0 || cam->height == 0 || cam->far == cam->near)
 // 		return (res);
-// 	res._00 = 2 * cam->near / cam->width;
-// 	res._11 = 2 * cam->near / cam->height;
+// 	res._00 =  cam->near / cam->width;
+// 	res._11 =  cam->near / cam->height;
 // 	res._22 = -(cam->far + cam->near) / (cam->far - cam->near);
 // 	res._32 = -1;
 // 	res._23 = 2 * cam->far * cam->near / (cam->far - cam->near);
