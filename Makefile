@@ -53,18 +53,21 @@ SRC_NAME = main.c			\
 			init_world.c	\
 			load_shader.c	\
 			create_obj.c	\
-			matrice.c
+			matrice.c		\
+			calc_shader.c	\
+			filter_key_input.c \
+			init_sdl.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-#INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2#
-#LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL#
+INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2
+LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL
 
-INC = $(addprefix -I, $(INC_PATH)) -I/usr/local/include/SDL2
-LIB = -L/usr/local/lib -lSDL2 -framework OpenGL
+#INC = $(addprefix -I, $(INC_PATH)) -I/usr/local/include/SDL2#
+#LIB = -L/usr/local/lib -lSDL2 -framework OpenGL#
 
 #===========#
 #_- Rules -_#

@@ -16,4 +16,11 @@
 # define NB_SHADERS 2
 # define BUFFER_OFFSET(i) ((char *)NULL + (i))
 
+#define NB_INPUT 11
+
+# define WIDTH 640
+# define HEIGHT 480
+
+# define VIEW env->camera->view_matrice
+
 #endif

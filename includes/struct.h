@@ -86,6 +86,7 @@ typedef struct s_cam{
     GLfloat		near;
     GLfloat		far;
     GLfloat		fov;
+	t_mat4		view_matrice;
 }               t_cam;
 
 typedef struct	s_vertex{
@@ -131,9 +132,9 @@ typedef struct  s_env{
     t_obj           *objets;
 }               t_env;
 
-typedef struct t_VertexData {
-		GLfloat position[4];
-		GLubyte color[4];
-	}VertexData;
+typedef struct s_key_input{
+	int		keycode;
+	void	(*f)(t_env *env);
+}				t_key_input;
 
 #endif

@@ -12,15 +12,6 @@
 
 #include "scop.h"
 
-t_vec3 init_vec3(float x, float y, float z)
-{
-    t_vec3 res;
-    res.x = x;
-    res.y = y;
-    res.z = z;
-    return (res);
-}
-
 t_cam *init_cam()
 {
     t_cam *ret;
@@ -28,10 +19,10 @@ t_cam *init_cam()
     ret = (t_cam*)malloc(sizeof(t_cam));
     ret->pos = init_vec3(0,0,2);
     ret->rot = init_vec3(0.0,0.0,0.0);
-    ret->width = 640;
+    ret->width = WIDTH;
+	ret->height = HEIGHT;
 	ret->fov = 45.0f / 180.0f * M_PI;
-	ret->ratio = 4.0/3.0;
-	ret->height = ret->width / ret->ratio;
+	ret->ratio = ret->width / ret->height;
     ret->near = 0.1;
     ret->far = 100.0;
     return ret;

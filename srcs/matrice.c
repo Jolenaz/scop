@@ -1,6 +1,6 @@
 #include "scop.h"
 
-t_vec4 matMult41 (t_mat4 A, t_vec4 p)
+t_vec4 mat_mult41 (t_mat4 A, t_vec4 p)
 {
 	t_vec4 ret;
 
@@ -11,7 +11,7 @@ t_vec4 matMult41 (t_mat4 A, t_vec4 p)
 	return (ret);
 }
 
-t_mat4 matMult44(t_mat4 A, t_mat4 B)
+t_mat4 mat_mult44(t_mat4 A, t_mat4 B)
 {
 	t_mat4 ret;
 
@@ -34,7 +34,7 @@ t_mat4 matMult44(t_mat4 A, t_mat4 B)
 	return (ret);
 }
 
-void	initMat4(t_mat4 *A)
+void	init_mat4(t_mat4 *A)
 {
 	char	*ptr;
 	size_t	i;
@@ -48,6 +48,42 @@ void	initMat4(t_mat4 *A)
 	}
 }
 
+t_vec3 init_vec3(float x, float y, float z)
+{
+    t_vec3 res;
+    res.x = x;
+    res.y = y;
+    res.z = z;
+    return (res);
+}
+
+void translate_vec3(t_vec3 *origin, const t_vec3 translation, float rate)
+{
+	origin->x += translation.x * rate;
+	origin->y += translation.y * rate;
+	origin->z += translation.z * rate;
+}
+
+float magnitude_vec3(t_vec3 src)
+{
+	return (sqrt(src.x * src.x + src.y * src.y + src.z * src.z));
+}
+
+t_vec3 normalise_vec3(t_vec3 src)
+{
+	t_vec3 ret;
+	float mg;
+
+	ret = init_vec3(0,0,0);
+	mg = magnitude_vec3(src);
+	if (mg == 0)
+		return (ret);
+	ret.x = src.x / mg;
+	ret.y = src.y / mg;
+	ret.z = src.z / mg;
+	return (ret);
+}
+
 void printMat4(t_mat4 A)
 {
 	printf("\n| %10.4f %10.4f %10.4f %10.4f |\n",A._00,A._01,A._02,A._03);
@@ -56,7 +92,7 @@ void printMat4(t_mat4 A)
 	printf("| %10.4f %10.4f %10.4f %10.4f |\n",A._30,A._31,A._32,A._33);
 }
 
-t_mat4	matRotInv(t_vec3 rot)
+t_mat4	mat_rot_inv(t_vec3 rot)
 {
 	t_mat4 ret;
 	const float coX = cos(-rot.x * M_PI / 180.0f);
@@ -66,7 +102,7 @@ t_mat4	matRotInv(t_vec3 rot)
 	const float coZ = cos(-rot.z * M_PI / 180.0f);
 	const float siZ = sin(-rot.z * M_PI / 180.0f);
 	
-	initMat4(&ret);
+	init_mat4(&ret);
 	ret._00 = coY * coZ;
 	ret._01 = -coY * siZ;
 	ret._02 = -siY;
@@ -80,7 +116,7 @@ t_mat4	matRotInv(t_vec3 rot)
 	return (ret);
 }
 
-t_mat4	matRot(t_vec3 rot)
+t_mat4	mat_rot(t_vec3 rot)
 {
 	t_mat4 ret;
 	const float coX = cos(rot.x * M_PI / 180.0f);
@@ -90,7 +126,7 @@ t_mat4	matRot(t_vec3 rot)
 	const float coZ = cos(rot.z * M_PI / 180.0f);
 	const float siZ = sin(rot.z * M_PI / 180.0f);
 	
-	initMat4(&ret);
+	init_mat4(&ret);
 	ret._00 = coY * coZ;
 	ret._01 = -coZ * siY * siX - siZ * coX;
 	ret._02 = -coZ * siY * coX + siX * siZ;
@@ -104,11 +140,11 @@ t_mat4	matRot(t_vec3 rot)
 	return (ret);
 }
 
-t_mat4 matTrans(t_vec3 trans)
+t_mat4 mat_trans(t_vec3 trans)
 {
 	t_mat4 res;
 
-	initMat4(&res);
+	init_mat4(&res);
 	res._00 = 1;
 	res._11 = 1;
 	res._22 = 1;
@@ -119,11 +155,11 @@ t_mat4 matTrans(t_vec3 trans)
 	return (res);
 }
 
-t_mat4 matTransInv(t_vec3 trans)
+t_mat4 mat_trans_inv(t_vec3 trans)
 {
 	t_mat4 res;
 
-	initMat4(&res);
+	init_mat4(&res);
 	res._00 = 1;
 	res._11 = 1;
 	res._22 = 1;
@@ -134,11 +170,11 @@ t_mat4 matTransInv(t_vec3 trans)
 	return (res);
 }
 
-t_mat4 matScaleInv(t_vec3 scal)
+t_mat4 mat_scale_inv(t_vec3 scal)
 {
 	t_mat4 res;
 
-	initMat4(&res);
+	init_mat4(&res);
 	if (scal.x == 0 || scal.y == 0 ||scal.z == 0)
 		return (res);
 	res._00 = 1 / scal.x;
@@ -148,11 +184,11 @@ t_mat4 matScaleInv(t_vec3 scal)
 	return (res);
 }
 
-t_mat4 matScale(t_vec3 scal)
+t_mat4 mat_scale(t_vec3 scal)
 {
 	t_mat4 res;
 
-	initMat4(&res);
+	init_mat4(&res);
 	res._00 = scal.x;
 	res._11 = scal.y;
 	res._22 = scal.z;
@@ -160,11 +196,11 @@ t_mat4 matScale(t_vec3 scal)
 	return (res);
 }
 
-t_mat4 matProj(t_cam *cam)
+t_mat4 mat_proj(t_cam *cam)
 {
 	t_mat4 res;
 
-	initMat4(&res);
+	init_mat4(&res);
 	if (cam->fov == 0 || cam->ratio == 0 || cam->far == cam->near)
 		return(res);
 	res._00 = 1 / tan(cam->fov / 2.0f);
@@ -174,18 +210,3 @@ t_mat4 matProj(t_cam *cam)
 	res._23 = -2 * cam->far * cam->near / (cam->far - cam->near);
 	return (res);
 }
-
-// t_mat4 matProj(t_cam *cam)
-// {
-// 	t_mat4 res;
-
-// 	initMat4(&res);
-// 	if (cam->width == 0 || cam->height == 0 || cam->far == cam->near)
-// 		return (res);
-// 	res._00 =  cam->near / cam->width;
-// 	res._11 =  cam->near / cam->height;
-// 	res._22 = -(cam->far + cam->near) / (cam->far - cam->near);
-// 	res._32 = -1;
-// 	res._23 = 2 * cam->far * cam->near / (cam->far - cam->near);
-// 	return (res);
-// }
