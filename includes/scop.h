@@ -18,6 +18,7 @@
 # include <stdio.h>
 # include <math.h>
 # include <unistd.h>
+# include <ctype.h>
 
 # include "struct.h"
 

@@ -13,6 +13,24 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
+typedef enum	e_state_parse {
+	num,
+	point,
+	sign,
+	flet,
+	slet,
+	new_float,
+	space,
+	end_space
+}				t_state_parse;
+
+typedef enum	e_vtype
+{
+	text,
+	norm,
+	vert
+}				t_vtype;
+
 typedef struct s_vec2{
     GLfloat x;
     GLfloat y;
@@ -94,6 +112,11 @@ typedef struct	s_vertex{
     t_color col; 
 	}			t_vertex;
 
+typedef struct	s_textured_vertex{
+    t_vec3 		pos;
+    GLfloat		text[2]; 
+	}			t_textured_vertex;
+
 typedef struct s_obj{
     int         vert_nb;
     t_vertex    *vertexes;
@@ -121,6 +144,14 @@ typedef struct s_shader_info{
 	GLchar*	addr;
 }				t_shader_info;
 
+typedef struct	s_obj_carac{
+	int		nb_vertex;
+	int		nb_normal;
+	int		nb_texture;
+	int		nb_face;
+	char	*mtl_name;
+}				t_obj_carac;
+
 typedef struct  s_env{
     t_cam           *camera;
     SDL_Window      *mainWindow;
@@ -130,6 +161,7 @@ typedef struct  s_env{
 	GLuint			vaos[NumVAOs];
 	GLuint 			buffers[NumBuffers];
     t_obj           *objets;
+	t_obj_carac		obj_carac;
 }               t_env;
 
 typedef struct s_key_input{

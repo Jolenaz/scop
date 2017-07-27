@@ -56,7 +56,7 @@ int		main_loop(t_env *env)
 	return (1);
 }
 
-int		main(void)
+int		main(int ac, char **av)
 {
 	t_env				*env;
 	const t_shader_info	shaders[] = {
@@ -66,6 +66,8 @@ int		main(void)
 	};
 
 	env = init_world();
+	if (open_obj(ac, av, env) == 0)
+		return (0);
 	init_sdl(env);
 	create_obj(env);
 	load_shader(env, shaders);

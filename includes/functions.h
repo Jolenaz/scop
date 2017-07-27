@@ -20,6 +20,9 @@ void	create_obj(t_env *e);
 void	calc_shader(t_env* env);
 void	filter_key_input(t_env *env);
 void	init_sdl(t_env *env);
+int		open_obj(int ac, char **av, t_env *env);
+int		parse_obj(FILE *obj_file, t_env* env);
+int		state_start(char *line);
 /* Operations matricielles */
 t_vec4	mat_mult41(t_mat4 A, t_vec4 p);
 t_mat4	mat_mult44(t_mat4 A, t_mat4 B);

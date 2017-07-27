@@ -56,7 +56,10 @@ SRC_NAME = main.c			\
 			matrice.c		\
 			calc_shader.c	\
 			filter_key_input.c \
-			init_sdl.c
+			init_sdl.c		\
+			parse_obj.c		\
+			open_obj.c		\
+			state_start.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 

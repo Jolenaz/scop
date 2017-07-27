@@ -23,4 +23,8 @@
 
 # define VIEW env->camera->view_matrice
 
+int		(*g_tab_state[10])(char *ptr);
+int		g_nb_points;
+t_vtype	g_current_v;
+
 #endif

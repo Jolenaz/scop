@@ -8,7 +8,9 @@
         "*.vert": "c"
     },
 
-	"editor.rulers": [
-		80
-	]
+    "editor.rulers": [
+        80
+    ]
+
+
 }
