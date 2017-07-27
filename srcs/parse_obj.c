@@ -48,7 +48,7 @@ int parse_obj(FILE *obj_file, t_env* env)
 	int		lnum;
 
 	line = NULL;
-	linecap = -1;
+	linecap = 1000000;
 	lnum = 0;
 	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
 	{	
