@@ -10,7 +10,9 @@
 
     "editor.rulers": [
         80
-    ]
+	],
+	
+	"editor.lineNumbers": "relative"
 
 
 }

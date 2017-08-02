@@ -14,6 +14,7 @@
 # define FUNCTIONS_H
 
 /* Functions */
+
 t_env   *init_world();
 void    load_shader(t_env *e, const t_shader_info *s);
 void	create_obj(t_env *e);
@@ -21,8 +22,17 @@ void	calc_shader(t_env* env);
 void	filter_key_input(t_env *env);
 void	init_sdl(t_env *env);
 int		open_obj(int ac, char **av, t_env *env);
-int		parse_obj(FILE *obj_file, t_env* env);
-int		state_start(char *line);
+int		first_parse_obj(FILE *obj_file, t_env* env);
+int		second_parse_obj(FILE *obj_file, t_env* env);
+int		create_vertex_tab(int v_num, int vt_num, int vn_num, t_env *env);
+int		stock_v(char *line, int lnum, t_env *env);
+int		parse_face(char *line, int lnum, t_env *env);
+t_face	*read_face(char *line, t_face_type type);
+t_face	*read_face_1(char *line);
+t_face	*read_face_2(char *line);
+t_face	*read_face_3(char *line);
+t_face	*read_face_4(char *line);
+
 /* Operations matricielles */
 t_vec4	mat_mult41(t_mat4 A, t_vec4 p);
 t_mat4	mat_mult44(t_mat4 A, t_mat4 B);

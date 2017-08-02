@@ -14,6 +14,7 @@ RM = rm -rf
 
 SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
+PAR_PATH = ./objs/parser
 INC_PATH = ./includes/
 
 #===========#
@@ -49,28 +50,35 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #_- Source Files -_#
 #==================#
 
-SRC_NAME = main.c			\
+SRC_NAME = main.c	\
 			init_world.c	\
 			load_shader.c	\
 			create_obj.c	\
-			matrice.c		\
+			matrice.c	\
 			calc_shader.c	\
-			filter_key_input.c \
-			init_sdl.c		\
-			parse_obj.c		\
-			open_obj.c		\
-			state_start.c
+			filter_key_input.c	\
+			init_sdl.c	\
+			open_obj.c	\
+			parser/create_vertex_tab.c	\
+			parser/parse_face.c	\
+			parser/parse_obj.c	\
+			parser/read_face_1.c	\
+			parser/read_face_2.c	\
+			parser/read_face_3.c	\
+			parser/read_face_4.c	\
+			parser/read_face.c	\
+			parser/stock_vertex.c		
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2
-LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL
+#INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2#
+#LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL#
 
-#INC = $(addprefix -I, $(INC_PATH)) -I/usr/local/include/SDL2#
-#LIB = -L/usr/local/lib -lSDL2 -framework OpenGL#
+INC = $(addprefix -I, $(INC_PATH)) -I/usr/local/include/SDL2
+LIB = -L/usr/local/lib -lSDL2 -framework OpenGL
 
 #===========#
 #_- Rules -_#
@@ -85,6 +93,7 @@ $(OBJ_PATH)%.o:  $(SRC_PATH)%.c
 $(OBJ_PATH):
 	@$(call put_title,Linking)
 	@mkdir -p $(OBJ_PATH)
+	@mkdir -p $(PAR_PATH)
 
 #	Object Compiation
 $(NAME): $(OBJ_PATH) $(OBJ)

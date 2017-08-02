@@ -12,35 +12,29 @@
 
 #include "scop.h"
 
-int	read_v_line(char *line, t_env* env)
+int read_v(char *line, int lnum, t_env* env)
 {
-	if (state_start(line) == 0)
-		return (0);
-	if (g_current_v == text)
-		env->obj_carac.nb_texture++;
-	else if (g_current_v == norm)
-		env->obj_carac.nb_normal++;
-	else if (g_current_v == vert)
-		env->obj_carac.nb_vertex++;
+	static int v_num = 0;
+	static int vt_num = 0;
+	static int vn_num = 0;
+
+	if (line == NULL)
+		return (create_vertex_tab(v_num, vt_num, vn_num, env));
+	else if(line[1] == ' ')
+		v_num++;
+	else if (line[1] == 'n')
+		vn_num++;
+	else if (line[1] == 't')
+		vt_num++;
 	else
 	{
-		fprintf(stderr, "probleme dans le typage de la v line");
+		fprintf(stderr, "error: wrong fomrat wt line %d\n", lnum);
 		return (0);
 	}
 	return (1);
 }
 
-int read_line(char *line, int lnum, t_env* env)
-{
-	if (line[0] == 'v' && read_v_line(line, env) == 0)
-	{
-		fprintf(stderr, "Error: impossible to parse vertex on ligne %d\n", lnum);
-		return (0);
-	}
-	return (1);
-}
-
-int parse_obj(FILE *obj_file, t_env* env)
+int first_parse_obj(FILE *obj_file, t_env* env)
 {
 	char	*line;
 	size_t	linecap;
@@ -52,11 +46,39 @@ int parse_obj(FILE *obj_file, t_env* env)
 	lnum = 0;
 	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
 	{	
-		++lnum;
-		if (line[0] == '#')
-			continue;
-		if (read_line(line, lnum, env) == 0)
+		lnum++;
+		if (line[0] == 'v' && read_v(line, lnum, env) == 0)
 			return (0);
+		// else if (line[0] == '#' || line[0] == 'f')
+		// 	continue;
+		// else
+		// 	analyse_line(line, lnum, env);
+	}
+	return (read_v(NULL, 0, env));
+}
+
+int second_parse_obj(FILE *obj_file, t_env* env)
+{
+	char	*line;
+	size_t	linecap;
+	ssize_t	linelen;
+	int		lnum;
+
+	rewind(obj_file);
+	line = NULL;
+	linecap = 10000;
+	lnum = 0;
+	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
+	{	
+		lnum++;
+		if (line[0] == 'v' && stock_v(line, lnum, env) == 0)
+			return (0);
+		else if ((line[0] == 'f' || line[0] == 'g')
+					&& parse_face
+					(line, lnum, env) == 0)
+			return (0);
+		else
+			continue;
 	}
 	return (1);
 }

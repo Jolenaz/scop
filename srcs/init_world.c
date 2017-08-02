@@ -34,9 +34,8 @@ t_env   *init_world()
     
     ret = (t_env*)malloc(sizeof(t_env));
     ret->camera = init_cam();
-	ret->obj_carac.nb_vertex = 0;
-	ret->obj_carac.nb_normal = 0;
-	ret->obj_carac.nb_texture = 0;
+	ret->first_obj = NULL;
+	ret->last_obj = NULL;
 
     return (ret);
 }

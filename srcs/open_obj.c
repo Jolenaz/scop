@@ -44,13 +44,25 @@ FILE *check_av(char **av)
 	return (obj_file);
 }
 
+void print_vertex (t_env *env)
+{
+	printf("nb de vertex : %d\n", env->nb_vertex);
+	printf("nb de normal : %d\n", env->nb_normal);
+	printf("nb de texture : %d\n", env->nb_texture);
+}
+
 int open_obj(int ac, char **av, t_env *env)
 {
 	FILE *obj_file;
 
 	if (check_ac(ac) == 0 || (obj_file = check_av(av)) == NULL)
 		return (0);
-	if (parse_obj(obj_file, env) == 0)
+	if (first_parse_obj(obj_file, env) == 0)
 		return(0);
+	if (second_parse_obj(obj_file, env) == 0)
+		return(0);
+
+	//print_vertex(env);
+	
 	return (0);
 }

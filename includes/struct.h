@@ -13,24 +13,6 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef enum	e_state_parse {
-	num,
-	point,
-	sign,
-	flet,
-	slet,
-	new_float,
-	space,
-	end_space
-}				t_state_parse;
-
-typedef enum	e_vtype
-{
-	text,
-	norm,
-	vert
-}				t_vtype;
-
 typedef struct s_vec2{
     GLfloat x;
     GLfloat y;
@@ -117,13 +99,6 @@ typedef struct	s_textured_vertex{
     GLfloat		text[2]; 
 	}			t_textured_vertex;
 
-typedef struct s_obj{
-    int         vert_nb;
-    t_vertex    *vertexes;
-    t_vec3      pos;
-    t_vec3      rot;
-}           t_obj;
-
 enum e_vao_ids {
 	Triangles,
 	NumVAOs 
@@ -144,13 +119,32 @@ typedef struct s_shader_info{
 	GLchar*	addr;
 }				t_shader_info;
 
-typedef struct	s_obj_carac{
-	int		nb_vertex;
-	int		nb_normal;
-	int		nb_texture;
-	int		nb_face;
-	char	*mtl_name;
-}				t_obj_carac;
+typedef enum	e_face_type{
+	face_undefine,
+	face_v,
+	face_v_n,
+	face_v_t,
+	face_v_t_n
+}				t_face_type;
+
+typedef struct	s_face{
+	int				vertex[3];
+	int				normal[3];
+	int				texture[3];
+	struct	s_face	*next;
+	struct	s_face	*prev;
+	
+}				t_face;
+
+typedef struct s_obj{
+    t_face			*first_face;
+    t_face			*last_face;
+    t_vec3  		pos;
+    t_vec3  		rot;
+	t_face_type		f_type;
+	struct s_obj	*next;
+	struct s_obj	*prev;
+}           t_obj;
 
 typedef struct  s_env{
     t_cam           *camera;
@@ -161,7 +155,14 @@ typedef struct  s_env{
 	GLuint			vaos[NumVAOs];
 	GLuint 			buffers[NumBuffers];
     t_obj           *objets;
-	t_obj_carac		obj_carac;
+	int				nb_vertex;
+	int				nb_texture;
+	int				nb_normal;
+	t_vec3			*vertex_tab;
+	t_vec3			*normal_tab;
+	t_vec2			*texture_tab;
+	t_obj			*first_obj;
+	t_obj			*last_obj;
 }               t_env;
 
 typedef struct s_key_input{
