@@ -29,11 +29,11 @@ const GLchar *load_shader_source(const char *filename, GLint *size_source) {
 
 void load_shader(t_env *e, const t_shader_info *si)
 {
-	const GLchar *current_shaders_code; 
-	GLint	size_source;
-	GLint	current_shader;
-	GLint	compilation_return;
-	int i;
+	const GLchar	*current_shaders_code; 
+	GLint			size_source;
+	GLint			current_shader;
+	GLint			compilation_return;
+	int				i;
 
 	i = 0;
 	e->program = glCreateProgram();
@@ -43,7 +43,6 @@ void load_shader(t_env *e, const t_shader_info *si)
 		current_shaders_code = load_shader_source(si[i].addr, &size_source);
 		glShaderSource(current_shader, 1, &current_shaders_code, &size_source);
 		glCompileShader(current_shader);
-
 		glGetShaderiv(current_shader, GL_COMPILE_STATUS, &compilation_return);
 		if (compilation_return == 0)
 		{

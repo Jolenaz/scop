@@ -2,28 +2,28 @@
 
 void	attribute_val_41(t_face *ret, int val[12])
 {
-	ret->vertex[0] = val[0];
-	ret->vertex[1] = val[3];
-	ret->vertex[2] = val[6];
-	ret->texture[0] = val[1];
-	ret->texture[1] = val[4];
-	ret->texture[2] = val[7];
-	ret->normal[0] = val[2];
-	ret->normal[1] = val[5];
-	ret->normal[2] = val[8];
+	ret->vertex[0] = val[0] - 1;
+	ret->vertex[1] = val[3] - 1;
+	ret->vertex[2] = val[6] - 1;
+	ret->texture[0] = val[1] - 1;
+	ret->texture[1] = val[4] - 1;
+	ret->texture[2] = val[7] - 1;
+	ret->normal[0] = val[2] - 1;
+	ret->normal[1] = val[5] - 1;
+	ret->normal[2] = val[8] - 1;
 }
 
 void	attribute_val_42(t_face *ret, int val[12])
 {
-	ret->vertex[0] = val[0];
-	ret->vertex[1] = val[6];
-	ret->vertex[2] = val[9];
-	ret->texture[0] = val[1];
-	ret->texture[1] = val[7];
-	ret->texture[2] = val[10];
-	ret->normal[0] = val[2];
-	ret->normal[1] = val[8];
-	ret->normal[2] = val[11];
+	ret->vertex[0] = val[0] - 1;
+	ret->vertex[1] = val[6] - 1;
+	ret->vertex[2] = val[9] - 1;
+	ret->texture[0] = val[1] - 1;
+	ret->texture[1] = val[7] - 1;
+	ret->texture[2] = val[10] - 1;
+	ret->normal[0] = val[2] - 1;
+	ret->normal[1] = val[8] - 1;
+	ret->normal[2] = val[11] - 1;
 }
 
 t_face	*create_face_4(int attr, int val[12], char is_first)

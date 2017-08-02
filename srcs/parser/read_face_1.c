@@ -2,16 +2,16 @@
 
 void	attribute_val_11(t_face *ret, int val[12])
 {
-	ret->vertex[0] = val[0];
-	ret->vertex[1] = val[1];
-	ret->vertex[2] = val[2];
+	ret->vertex[0] = val[0] - 1;
+	ret->vertex[1] = val[1] - 1;
+	ret->vertex[2] = val[2] - 1;
 }
 
 void	attribute_val_12(t_face *ret, int val[12])
 {
-	ret->vertex[0] = val[0];
-	ret->vertex[1] = val[2];
-	ret->vertex[2] = val[3];
+	ret->vertex[0] = val[0] - 1;
+	ret->vertex[1] = val[2] - 1;
+	ret->vertex[2] = val[3] - 1;
 }
 
 t_face	*create_face_1(int attr, int val[12], char is_first)
