@@ -40,8 +40,6 @@ void	init_sdl(t_env *env)
 		SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	init_sdl_attribute();
 	env->mainContext = SDL_GL_CreateContext(env->mainWindow);
-	glEnable(GL_CULL_FACE);
 	glEnable(GL_DEPTH_TEST);
-	glCullFace(GL_BACK);
 	glDepthFunc(GL_LESS);
 }

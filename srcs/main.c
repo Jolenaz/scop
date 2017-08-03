@@ -19,7 +19,7 @@ void	create_vap(void)
 		3,
 		GL_FLOAT,
 		GL_FALSE,
-		sizeof(t_vertex),
+		sizeof(t_vec3),
 		BUFFER_OFFSET(0));
 	glVertexAttribPointer(
 		vColor,
@@ -33,11 +33,11 @@ void	create_vap(void)
 void	draw(t_env *env)
 {
 	glEnableVertexAttribArray(0);
-	glEnableVertexAttribArray(1);
+	//glEnableVertexAttribArray(1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glDrawArrays(GL_TRIANGLES, 0, 36);
+	glDrawArrays(GL_TRIANGLES, 0, env->nb_faces * 3);
 	glDisableVertexAttribArray(0);
-	glDisableVertexAttribArray(1);
+	//glDisableVertexAttribArray(1);
 	SDL_GL_SwapWindow(env->mainWindow);
 }
 
@@ -67,12 +67,17 @@ int		main(int ac, char **av)
 
 	env = init_world();
 	if (open_obj(ac, av, env) == 0)
+	{
+		write(1 , "ici\n", 4);
+		printf("%d\n",env->nb_faces);
 		return (0);
+	}
 	init_sdl(env);
 	create_obj(env);
 	load_shader(env, shaders);
 	glUseProgram(env->program);
 	create_vap();
+
 	while (main_loop(env))
 	{
 	}

@@ -49,10 +49,6 @@ int first_parse_obj(FILE *obj_file, t_env* env)
 		lnum++;
 		if (line[0] == 'v' && read_v(line, lnum, env) == 0)
 			return (0);
-		// else if (line[0] == '#' || line[0] == 'f')
-		// 	continue;
-		// else
-		// 	analyse_line(line, lnum, env);
 	}
 	return (read_v(NULL, 0, env));
 }
@@ -71,14 +67,17 @@ int second_parse_obj(FILE *obj_file, t_env* env)
 	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
 	{	
 		lnum++;
-		if (line[0] == 'v' && stock_v(line, lnum, env) == 0)
-			return (0);
-		else if ((line[0] == 'f' || line[0] == 'g')
-					&& parse_face
-					(line, lnum, env) == 0)
-			return (0);
+		if (line[0] == 'v' && stock_v(line, env) == 0)
+			return (print_error0("impossible to parse line",lnum));
+		else if ((line[0] == 'f' || line[0] == 'g' ) && parse_face(line, env) == 0)
+			return (print_error0("impossible to parse line",lnum));
+		else if (strcmp(line, "usemtl") == ' ' && stock_mtl(line, env) == 0)
+			return (print_error0("impossible to parse line",lnum));
+		else if (strcmp(line, "mtllib") == ' ' && stock_mtl_lib(line, env) == 0)
+			return (print_error0("impossible to parse line",lnum));
 		else
 			continue;
 	}
+	parse_face(NULL, env);
 	return (1);
 }

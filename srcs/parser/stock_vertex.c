@@ -53,22 +53,13 @@ int stock_normal(char *line, t_env *env)
 	return (1);
 }
 
-int	stock_v(char *line,int lnum, t_env *env)
+int	stock_v(char *line, t_env *env)
 {
 	if (line[1] == ' ' && stock_vertex(line, env) == 0)
-	{
-		fprintf(stderr, "error, impossible to parse line %d\n", lnum);
 		return (0);
-	}
 	else if (line[1] == 't' && stock_texture(line, env) == 0)
-	{
-		fprintf(stderr, "error, impossible to parse line %d\n", lnum);
-		return (0);
-	}	
+		return (0);	
 	else if (line[1] == 'n' && stock_normal(line, env) == 0)
-	{
-		fprintf(stderr, "error, impossible to parse line %d\n", lnum);
 		return (0);
-	}
 	return (1);
 }

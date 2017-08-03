@@ -1,11 +1,11 @@
 #version 410 core
 
 layout(location = 0) in vec3 vertexPosition_modelspace;
-layout(location = 1) in vec4 vColor;
+//layout(location = 1) in vec4 vColor;
 uniform mat4 VP;
-out vec4 color;
+//out vec4 color;
 void main(){
-	color = vColor;
+//	color = vColor;
 	gl_Position = VP * vec4(vertexPosition_modelspace,1);
 }
 // layout(location = 0) in vec4 vPosition;

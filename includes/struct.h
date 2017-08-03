@@ -127,6 +127,16 @@ typedef enum	e_face_type{
 	face_v_t_n
 }				t_face_type;
 
+typedef struct	s_material
+{
+	char	*name;
+	char 	*map_Kd;
+	t_color	Kd;
+	t_color	Ks;
+	t_color	Ka;
+	GLfloat	Ns;
+}				t_material;
+
 typedef struct	s_face{
 	int				vertex[3];
 	int				normal[3];
@@ -141,7 +151,9 @@ typedef struct s_obj{
     t_face			*last_face;
     t_vec3  		pos;
     t_vec3  		rot;
+	GLuint			nb_faces;
 	t_face_type		f_type;
+	t_material		*material;
 	struct s_obj	*next;
 	struct s_obj	*prev;
 }           t_obj;
@@ -154,15 +166,18 @@ typedef struct  s_env{
 	GLuint			program;
 	GLuint			vaos[NumVAOs];
 	GLuint 			buffers[NumBuffers];
-    t_obj           *objets;
 	int				nb_vertex;
 	int				nb_texture;
 	int				nb_normal;
+	int				nb_faces;
 	t_vec3			*vertex_tab;
 	t_vec3			*normal_tab;
 	t_vec2			*texture_tab;
 	t_obj			*first_obj;
 	t_obj			*last_obj;
+	int				nb_material;
+	t_material		*mat_list;
+	t_material		current_mat;
 }               t_env;
 
 typedef struct s_key_input{

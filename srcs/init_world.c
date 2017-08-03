@@ -36,6 +36,8 @@ t_env   *init_world()
     ret->camera = init_cam();
 	ret->first_obj = NULL;
 	ret->last_obj = NULL;
+	ret->nb_faces = 0;
+	ret->mat_list = NULL;
 
     return (ret);
 }

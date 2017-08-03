@@ -2,6 +2,7 @@
 
 void	push_face(t_face *face, t_obj *cur_obj)
 {
+	cur_obj->nb_faces++;
 	if (cur_obj->first_face == NULL)
 		cur_obj->first_face = face;
 	else
@@ -12,11 +13,15 @@ void	push_face(t_face *face, t_obj *cur_obj)
 	if (face->next == NULL)
 		cur_obj->last_face = face;
 	else
+	{
+		cur_obj->nb_faces++;
 		cur_obj->last_face = face->next;
+	}
 }
 
-void	push_obj(t_obj *cur_obj, t_env *env)
+int		push_obj(t_obj *cur_obj, t_env *env)
 {
+
 	if (env->first_obj == NULL)
 		env->first_obj = cur_obj;
 	else
@@ -28,6 +33,8 @@ void	push_obj(t_obj *cur_obj, t_env *env)
 		env->last_obj = cur_obj;
 	else
 		env->last_obj = cur_obj->next;
+	env->nb_faces += cur_obj->nb_faces;
+	return (1);
 }
 
 t_obj	*new_obj(void)
@@ -38,6 +45,7 @@ t_obj	*new_obj(void)
 	ret->next = NULL;
 	ret->prev = NULL;
 	ret->f_type = face_undefine;
+	ret->nb_faces = 0;
 	return (ret);
 }
 
@@ -69,29 +77,29 @@ t_face_type	read_face_format(char *line)
 	return (face_undefine);
 }
 
-int		parse_face(char *line, int lnum, t_env *env)
+int		parse_face(char *line, t_env *env)
 {
 	static t_obj	*cur_obj = NULL;
 	t_face			*face;
 
 	if (line == NULL)
-		push_obj(cur_obj, env);
+		return (push_obj(cur_obj, env));
 	else if (line[0] == 'g')
 	{
 		if (cur_obj != NULL)
 			push_obj(cur_obj, env);
 		cur_obj = new_obj();
 	}
-	else if (cur_obj == NULL)
+	else if (line[0] == 'f' && cur_obj == NULL)
 		cur_obj = new_obj();
-	if (cur_obj->f_type == face_undefine &&
-			(cur_obj->f_type = read_face_format(line)) == face_undefine)
-			return (0);
-	if ((face = read_face(line, cur_obj->f_type)) == NULL)
+	else if (line[0] == 'f')
 	{
-		fprintf(stderr, "error : impossible to parse face line : %d\n",lnum);
-		return (0);
+		if (cur_obj->f_type == face_undefine && (cur_obj->f_type = read_face_format(line)) == face_undefine)
+			return (0);
+		if ((face = read_face(line, cur_obj->f_type)) == NULL)
+			return (0);
+		else 
+			push_face(face, cur_obj);
 	}
-	push_face(face, cur_obj);
 	return (1);
 }

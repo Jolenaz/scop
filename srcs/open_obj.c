@@ -15,15 +15,9 @@
 int	check_ac(int ac)
 {
 	if (ac == 1)
-	{
-		fprintf(stderr,"Error: Utiliser un fichier .obj en argument\n");
-		return (0);
-	}
+		return (print_error1("Error: Utiliser un fichier .obj en argument\n"));
 	else if (ac > 2)
-	{
-		fprintf(stderr,"Error: Ne peut afficher qu'un seul fichier obj\n");
-		return (0);
-	}
+		return (print_error1("Error: Ne peut afficher qu'un seul fichier obj\n"));
 	return (1);
 }
 
@@ -61,8 +55,5 @@ int open_obj(int ac, char **av, t_env *env)
 		return(0);
 	if (second_parse_obj(obj_file, env) == 0)
 		return(0);
-
-	//print_vertex(env);
-	
-	return (0);
+	return (1);
 }

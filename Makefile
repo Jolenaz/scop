@@ -51,10 +51,11 @@ put_title = echo "\033[38;5;$(TITLE_COLOR)m[ $(1) ]\033[0m"
 #==================#
 
 SRC_NAME = main.c	\
+			error.c			\
 			init_world.c	\
 			load_shader.c	\
 			create_obj.c	\
-			matrice.c	\
+			matrice.c		\
 			calc_shader.c	\
 			filter_key_input.c	\
 			init_sdl.c	\
@@ -67,6 +68,7 @@ SRC_NAME = main.c	\
 			parser/read_face_3.c	\
 			parser/read_face_4.c	\
 			parser/read_face.c	\
+			parser/read_mtl.c	\
 			parser/stock_vertex.c		
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
