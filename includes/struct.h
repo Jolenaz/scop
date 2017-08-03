@@ -176,7 +176,7 @@ typedef struct  s_env{
 	t_obj			*first_obj;
 	t_obj			*last_obj;
 	int				nb_material;
-	t_material		*mat_list;
+	t_material		*mat_tab;
 	t_material		current_mat;
 }               t_env;
 

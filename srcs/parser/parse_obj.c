@@ -73,7 +73,7 @@ int second_parse_obj(FILE *obj_file, t_env* env)
 			return (print_error0("impossible to parse line",lnum));
 		else if (strcmp(line, "usemtl") == ' ' && stock_mtl(line, env) == 0)
 			return (print_error0("impossible to parse line",lnum));
-		else if (strcmp(line, "mtllib") == ' ' && stock_mtl_lib(line, env) == 0)
+		else if (strcmp(line, "mtllib") == ' ' && read_mtl_lib(line, env) == 0)
 			return (print_error0("impossible to parse line",lnum));
 		else
 			continue;

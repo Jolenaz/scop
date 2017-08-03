@@ -67,11 +67,7 @@ int		main(int ac, char **av)
 
 	env = init_world();
 	if (open_obj(ac, av, env) == 0)
-	{
-		write(1 , "ici\n", 4);
-		printf("%d\n",env->nb_faces);
 		return (0);
-	}
 	init_sdl(env);
 	create_obj(env);
 	load_shader(env, shaders);

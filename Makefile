@@ -62,6 +62,7 @@ SRC_NAME = main.c	\
 			open_obj.c	\
 			parser/create_vertex_tab.c	\
 			parser/parse_face.c	\
+			parser/parse_mtl.c	\
 			parser/parse_obj.c	\
 			parser/read_face_1.c	\
 			parser/read_face_2.c	\

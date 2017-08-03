@@ -1,7 +1,25 @@
 #include "scop.h"
 
+void	clear_bn(char *name)
+{
+	char *ptr;
+
+	ptr = name;
+	while (*ptr)
+	{
+		if (*ptr == '\n')
+			*ptr = 0;
+		ptr++;
+	}
+}
+
 int stock_mtl(char *line, t_env *env)
 {
+	char *name;
+
+	name = strdup(line + 7);
+	clear_bn(name);
+	printf(">%s<\n", name);
 	return (1);
 	line = NULL;
 	env = NULL;
@@ -24,21 +42,41 @@ FILE *check_mtl_file(char *line)
 	return (mtl_file);
 }
 
-int	stock_mtl_lib(char *line, t_env * env)
+int first_parse_mtl(FILE *obj_file, t_env* env)
+{
+	char	*line;
+	size_t	linecap;
+	ssize_t	linelen;
+
+	line = NULL;
+	linecap = 10000;
+	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
+	{	
+		if (strcmp(line, "newmtl") == ' ')
+			env->nb_material++;
+	}
+	env->mat_tab = (t_material*)malloc(sizeof(t_material) * env->nb_material);
+	if (env->mat_tab == NULL)
+		return (print_error1("malloc fail"));
+	return (1);
+}
+
+int	read_mtl_lib(char *line, t_env * env)
 {
 	FILE	*mtl_file;
 
-	if (env->mat_list != NULL)
+	if (env->mat_tab != NULL)
 		return (print_error1("error can use only one .mtl file"));
 	while(*line != ' ')
 		line++;
 	line++;
 	if ((mtl_file = check_mtl_file(line)) == NULL)
 		return (0);
-	// if (first_parse_mtl(mtl_file, env) == 0)
-	// 	return(0);
-	// if (second_parse_mtl(mtl_file, env) == 0)
-	// 	return(0);
+	if (first_parse_mtl(mtl_file, env) == 0)
+		return(0);
+	rewind(mtl_file);
+	if (second_parse_mtl(mtl_file, env) == 0)
+		return(0);
 	fclose(mtl_file);
 	return (1);
 }
