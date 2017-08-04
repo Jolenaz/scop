@@ -34,7 +34,7 @@ int stock_mtl(char *line, t_env *env, int lnum)
 		}
 		++i;
 	}
-	fprintf("Warning: le materiau ligne : %d n'est pas reconnu\n", lnum);
+	fprintf(stderr, "Warning: le materiau ligne : %d n'est pas reconnu\n", lnum);
 	return (1);
 }
 
@@ -68,6 +68,7 @@ int first_parse_mtl(FILE *obj_file, t_env* env)
 		if (strcmp(line, "newmtl") == ' ')
 			env->nb_material++;
 	}
+	free(line);
 	env->mat_tab = (t_material*)malloc(sizeof(t_material) * env->nb_material);
 	if (env->mat_tab == NULL)
 		return (print_error1("malloc fail"));

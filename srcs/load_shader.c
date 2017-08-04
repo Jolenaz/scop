@@ -53,6 +53,7 @@ void load_shader(t_env *e, const t_shader_info *si)
 		}
 		glAttachShader(e->program, current_shader);
 		++i;
+		free((void*)current_shaders_code);
 	}
-	glLinkProgram(e->program);	
+	glLinkProgram(e->program);
 }

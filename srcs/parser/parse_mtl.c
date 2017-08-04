@@ -96,5 +96,6 @@ int	second_parse_mtl(FILE *mtl_file, t_env *env)
 		if (analyse_line(line , env) == 0)
 			return (print_error0("Error: fail read .mtl :", lnum));	
 	}
+	free(line);
 	return (1);
 }

@@ -50,6 +50,7 @@ int first_parse_obj(FILE *obj_file, t_env* env)
 		if (line[0] == 'v' && read_v(line, lnum, env) == 0)
 			return (0);
 	}
+	free(line);
 	return (read_v(NULL, 0, env));
 }
 
@@ -78,6 +79,7 @@ int second_parse_obj(FILE *obj_file, t_env* env)
 		else
 			continue;
 	}
+	free(line);
 	parse_face(NULL, env);
 	return (1);
 }
