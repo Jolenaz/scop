@@ -1,9 +1,12 @@
 #include "scop.h"
 
-void	clear_bn(char *name)
+char	*clear_bn(char *line)
 {
-	char *ptr;
 
+	char *ptr;
+	char *name;
+
+	name = strdup(line + 7);
 	ptr = name;
 	while (*ptr)
 	{
@@ -11,18 +14,28 @@ void	clear_bn(char *name)
 			*ptr = 0;
 		ptr++;
 	}
+
+	return (name);
 }
 
-int stock_mtl(char *line, t_env *env)
+int stock_mtl(char *line, t_env *env, int lnum)
 {
 	char *name;
+	int i;
 
-	name = strdup(line + 7);
-	clear_bn(name);
-	printf(">%s<\n", name);
+	name = clear_bn(line);
+	i = 0;
+	while (i < env->nb_material)
+	{
+		if (strcmp(env->mat_tab[i].name, name) == 0)
+		{
+			env->current_mat = &(env->mat_tab[i]);
+			return (1);
+		}
+		++i;
+	}
+	printf("Warning: le materiau ligne : %d n'est pas reconnu", lnum);
 	return (1);
-	line = NULL;
-	env = NULL;
 }
 
 FILE *check_mtl_file(char *line)

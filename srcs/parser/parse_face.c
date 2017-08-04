@@ -4,14 +4,19 @@ void	push_face(t_face *face, t_obj *cur_obj)
 {
 	cur_obj->nb_faces++;
 	if (cur_obj->first_face == NULL)
+	{
 		cur_obj->first_face = face;
+		cur_obj->last_face = face;
+	}
 	else
 	{
 		cur_obj->last_face->next = face;
 		face->prev = cur_obj->last_face;
 	}
 	if (face->next == NULL)
+	{
 		cur_obj->last_face = face;
+	}
 	else
 	{
 		cur_obj->nb_faces++;
@@ -44,6 +49,8 @@ t_obj	*new_obj(void)
 	ret = (t_obj*)malloc(sizeof(t_obj));
 	ret->next = NULL;
 	ret->prev = NULL;
+	ret->first_face = NULL;
+	ret->last_face = NULL;
 	ret->f_type = face_undefine;
 	ret->nb_faces = 0;
 	return (ret);

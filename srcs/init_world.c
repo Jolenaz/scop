@@ -38,6 +38,7 @@ t_env   *init_world()
 	ret->last_obj = NULL;
 	ret->nb_faces = 0;
 	ret->mat_tab = NULL;
+	ret->current_mat = NULL;
 	ret->nb_material = 0;
 
     return (ret);

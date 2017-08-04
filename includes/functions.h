@@ -27,13 +27,14 @@ void	init_sdl(t_env *env);
 
 /* Parser */
 
+
 int		open_obj(int ac, char **av, t_env *env);
 int		first_parse_obj(FILE *obj_file, t_env* env);
 int		second_parse_obj(FILE *obj_file, t_env* env);
 int		create_vertex_tab(int v_num, int vt_num, int vn_num, t_env *env);
 int		stock_v(char *line, t_env *env);
 int		parse_face(char *line, t_env *env);
-int		stock_mtl(char *line, t_env *env);
+int		stock_mtl(char *line, t_env *env, int l);
 int		read_mtl_lib(char *line,t_env * env);
 int		second_parse_mtl(FILE *mtl_file, t_env *env);
 t_face	*read_face(char *line, t_face_type type);
@@ -41,6 +42,8 @@ t_face	*read_face_1(char *line);
 t_face	*read_face_2(char *line);
 t_face	*read_face_3(char *line);
 t_face	*read_face_4(char *line);
+
+char	*clear_bn(char *line);
 
 /* Operations matricielles */
 t_vec4	mat_mult41(t_mat4 A, t_vec4 p);

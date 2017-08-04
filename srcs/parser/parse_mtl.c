@@ -65,9 +65,9 @@ int analyse_line (char *line, t_env *env)
 	ret = 0;
 	if (strcmp(line, "newmtl") == ' ')
 	{
-		i++;
 		init_mtl(&(env->mat_tab[i]));
-		env->mat_tab[i].name = strdup(line + 7);
+		env->mat_tab[i].name = clear_bn(line);
+		++i;
 	}
 	else if (strcmp(line, "Kd") == ' ' ||  strcmp(line, "Ks") == ' ' ||
 			strcmp(line, "Ka") == ' ')
