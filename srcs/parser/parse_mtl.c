@@ -23,6 +23,7 @@ int		mtl_lib_value(char *line, t_env *e, int i)
 		e->mat_tab[i].Kd.r = (GLubyte)(res[0] * 255);
 		e->mat_tab[i].Kd.g = (GLubyte)(res[1] * 255);
 		e->mat_tab[i].Kd.b = (GLubyte)(res[2] * 255);
+
 		return (1);
 	}
 	else if (sscanf(line, "Ks %f %f %f", res, res + 1, res + 2) == 3)
@@ -59,15 +60,15 @@ int	mtl_lib_texture_ns(char *line, t_env *env, int i)
 
 int analyse_line (char *line, t_env *env)
 {
-	static int i = 0;
+	static int i = -1;
 	int ret;
 
 	ret = 0;
 	if (strcmp(line, "newmtl") == ' ')
 	{
+		++i;
 		init_mtl(&(env->mat_tab[i]));
 		env->mat_tab[i].name = clear_bn(line);
-		++i;
 	}
 	else if (strcmp(line, "Kd") == ' ' ||  strcmp(line, "Ks") == ' ' ||
 			strcmp(line, "Ka") == ' ')

@@ -71,10 +71,10 @@ int second_parse_obj(FILE *obj_file, t_env* env)
 			return (print_error0("impossible to parse line",lnum));
 		else if ((line[0] == 'f' || line[0] == 'g' ) && parse_face(line, env) == 0)
 			return (print_error0("impossible to parse line",lnum));
-		// else if (strcmp(line, "usemtl") == ' ' && stock_mtl(line, env, lnum) == 0)
-		// 	return (print_error0("impossible to parse line",lnum));
-		// else if (strcmp(line, "mtllib") == ' ' && read_mtl_lib(line, env) == 0)
-		// 	return (print_error0("impossible to parse line",lnum));
+		else if (strcmp(line, "usemtl") == ' ' && stock_mtl(line, env, lnum) == 0)
+			return (print_error0("impossible to parse line",lnum));
+		else if (strcmp(line, "mtllib") == ' ' && read_mtl_lib(line, env) == 0)
+			return (print_error0("impossible to parse line",lnum));
 		else
 			continue;
 	}

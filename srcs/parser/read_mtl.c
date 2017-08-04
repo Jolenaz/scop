@@ -34,7 +34,7 @@ int stock_mtl(char *line, t_env *env, int lnum)
 		}
 		++i;
 	}
-	printf("Warning: le materiau ligne : %d n'est pas reconnu", lnum);
+	fprintf("Warning: le materiau ligne : %d n'est pas reconnu\n", lnum);
 	return (1);
 }
 

@@ -72,7 +72,7 @@ void	create_obj(t_env *e)
 	// 	{points[5], vert},
 	// };
 
-	t_vec3 vertices[e->nb_faces * 3];
+	t_vertex vertices[e->nb_faces * 3];
 
 	t_obj	*ptr = e->first_obj;
 	int		i = 0;
@@ -81,9 +81,15 @@ void	create_obj(t_env *e)
 		t_face *ptr1 = ptr->first_face;
 		while(ptr1)
 		{
-			vertices[i] 	= e->vertex_tab[ptr1->vertex[0]];
-			vertices[i + 1] = e->vertex_tab[ptr1->vertex[1]];
-			vertices[i + 2] = e->vertex_tab[ptr1->vertex[2]];
+			vertices[i].pos 	= e->vertex_tab[ptr1->vertex[0]];
+			vertices[i + 1].pos = e->vertex_tab[ptr1->vertex[1]];
+			vertices[i + 2].pos = e->vertex_tab[ptr1->vertex[2]];
+			if (ptr->material != NULL)
+			{
+				vertices[i].Kd 	  = ptr->material->Kd;
+				vertices[i + 1].Kd = ptr->material->Kd;
+				vertices[i + 2].Kd = ptr->material->Kd;
+			}
 			i += 3;
 			ptr1 = ptr1->next;
 		}

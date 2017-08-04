@@ -91,8 +91,11 @@ typedef struct s_cam{
 
 typedef struct	s_vertex{
     t_vec3  pos;
-    t_color col; 
-	}			t_vertex;
+    t_color Kd;
+	t_mat4	model;
+	GLchar	texture_index;
+	t_vec2	texture;
+}				t_vertex;
 
 typedef struct	s_textured_vertex{
     t_vec3 		pos;

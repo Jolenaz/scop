@@ -26,7 +26,6 @@ void	push_face(t_face *face, t_obj *cur_obj)
 
 int		push_obj(t_obj *cur_obj, t_env *env)
 {
-
 	if (env->first_obj == NULL)
 		env->first_obj = cur_obj;
 	else
@@ -42,7 +41,7 @@ int		push_obj(t_obj *cur_obj, t_env *env)
 	return (1);
 }
 
-t_obj	*new_obj(void)
+t_obj	*new_obj(t_env *env)
 {
 	t_obj	*ret;
 
@@ -53,6 +52,7 @@ t_obj	*new_obj(void)
 	ret->last_face = NULL;
 	ret->f_type = face_undefine;
 	ret->nb_faces = 0;
+	ret->material = env->current_mat;
 	return (ret);
 }
 
@@ -95,10 +95,10 @@ int		parse_face(char *line, t_env *env)
 	{
 		if (cur_obj != NULL)
 			push_obj(cur_obj, env);
-		cur_obj = new_obj();
+		cur_obj = new_obj(env);
 	}
 	else if (line[0] == 'f' && cur_obj == NULL)
-		cur_obj = new_obj();
+		cur_obj = new_obj(env);
 	else if (line[0] == 'f')
 	{
 		if (cur_obj->f_type == face_undefine && (cur_obj->f_type = read_face_format(line)) == face_undefine)
