@@ -35,7 +35,7 @@ void	draw(t_env *env)
 	glEnableVertexAttribArray(0);
 	glEnableVertexAttribArray(1);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glDrawArrays(GL_TRIANGLES, 0, env->nb_faces * 3);
+	glDrawArrays(GL_TRIANGLES, 0, env->obj->nb_faces * 3);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
 	SDL_GL_SwapWindow(env->mainWindow);
@@ -66,8 +66,7 @@ int		main(int ac, char **av)
 	};
 
 	env = init_world();
-	if (open_obj(ac, av, env) == 0)
-		return (0);
+	open_scene(ac, av, env);
 	init_sdl(env);
 	create_obj(env);
 	load_shader(env, shaders);

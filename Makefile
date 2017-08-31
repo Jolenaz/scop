@@ -59,29 +59,25 @@ SRC_NAME = main.c	\
 			calc_shader.c	\
 			filter_key_input.c	\
 			init_sdl.c	\
-			open_obj.c	\
-			parser/create_vertex_tab.c	\
+			open_scene.c	\
 			parser/parse_face.c	\
-			parser/parse_mtl.c	\
-			parser/parse_obj.c	\
+			parser/parse_scene.c	\
 			parser/read_face_1.c	\
 			parser/read_face_2.c	\
 			parser/read_face_3.c	\
 			parser/read_face_4.c	\
-			parser/read_face.c	\
-			parser/read_mtl.c	\
-			parser/stock_vertex.c		
+			parser/read_face.c
 
 OBJ_NAME = $(SRC_NAME:.c=.o)
 
 SRC = $(addprefix $(SRC_PATH), $(SRC_NAME))
 OBJ = $(addprefix $(OBJ_PATH), $(OBJ_NAME))
 
-#INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2#
-#LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL#
+INC = $(addprefix -I, $(INC_PATH)) -I/Users/jbelless/.brew/include/SDL2
+LIB = -L/Users/jbelless/.brew/lib -lSDL2 -framework OpenGL
 
-INC = $(addprefix -I, $(INC_PATH)) -I/usr/local/include/SDL2
-LIB = -L/usr/local/lib -lSDL2 -framework OpenGL
+#INC = $(addprefix -I, $(INC_PATH)) -I/usr/local/include/SDL2#
+#LIB = -L/usr/local/lib -lSDL2 -framework OpenGL#
 
 #===========#
 #_- Rules -_#

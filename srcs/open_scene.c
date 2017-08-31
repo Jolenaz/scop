@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_obj.c                                         :+:      :+:    :+:   */
+/*   open_scene.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,48 +12,31 @@
 
 #include "scop.h"
 
-int	check_ac(int ac)
+void	check_ac(int ac)
 {
 	if (ac == 1)
-		return (print_error1("Error: Utiliser un fichier .obj en argument\n"));
+		print_error1("Utiliser un fichier .obj en argument\n");
 	else if (ac > 2)
-		return (print_error1("Error: Ne peut afficher qu'un seul fichier obj\n"));
-	return (1);
+		print_error1("Ne peut afficher qu'un seul fichier obj\n");
 }
 
-FILE *check_av(char **av)
+FILE	*check_av(char **av)
 {
 	FILE *obj_file;
 
 	if ((obj_file = fopen(av[1], "r")) == NULL)
-		{
-			fprintf(stderr,"Error: le fichier passer en argument est introuvable\n");
-			return (NULL);
-		}
+		print_error1("le fichier passer en argument est introuvable\n");
 	if( av[1] + strlen(av[1]) - strstr(av[1], ".obj") != 4)
-		{
-			fprintf(stderr,"Error: le fichier passer en argument est introuvable\n");
-			return (NULL);
-		}
+		print_error1("le fichier passer en argument doit être un .obj\n");
 	return (obj_file);
 }
 
-void print_vertex (t_env *env)
-{
-	printf("nb de vertex : %d\n", env->nb_vertex);
-	printf("nb de normal : %d\n", env->nb_normal);
-	printf("nb de texture : %d\n", env->nb_texture);
-}
-
-int open_obj(int ac, char **av, t_env *env)
+void	open_scene(int ac, char **av, t_env *env)
 {
 	FILE *obj_file;
 
-	if (check_ac(ac) == 0 || (obj_file = check_av(av)) == NULL)
-		return (0);
-	if (first_parse_obj(obj_file, env) == 0)
-		return(0);
-	if (second_parse_obj(obj_file, env) == 0)
-		return(0);
-	return (1);
+	check_ac(ac);
+	obj_file = check_av(av);
+	first_parse_scene(obj_file, env);
+	second_parse_scene(obj_file, env);
 }

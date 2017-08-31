@@ -12,29 +12,25 @@
 
 #include "scop.h"
 
-int read_v(char *line, int lnum, t_env* env)
+int stock_vertex(char *line, t_env *env)
 {
-	static int v_num = 0;
-	static int vt_num = 0;
-	static int vn_num = 0;
+	static int	v_num = 0;
+	int			ret;
 
-	if (line == NULL)
-		return (create_vertex_tab(v_num, vt_num, vn_num, env));
-	else if(line[1] == ' ')
-		v_num++;
-	else if (line[1] == 'n')
-		vn_num++;
-	else if (line[1] == 't')
-		vt_num++;
-	else
-	{
-		fprintf(stderr, "error: wrong fomrat wt line %d\n", lnum);
+	ret = sscanf(
+		line,
+		"v %f %f %f",
+		&(env->vertex_tab[v_num].x),
+		&(env->vertex_tab[v_num].y),
+		&(env->vertex_tab[v_num].z)
+	);
+	if (ret < 3)
 		return (0);
-	}
+	v_num++;
 	return (1);
 }
 
-int first_parse_obj(FILE *obj_file, t_env* env)
+void	first_parse_scene(FILE *obj_file, t_env *env)
 {
 	char	*line;
 	size_t	linecap;
@@ -45,16 +41,20 @@ int first_parse_obj(FILE *obj_file, t_env* env)
 	linecap = 10000;
 	lnum = 0;
 	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
-	{	
+	{
 		lnum++;
-		if (line[0] == 'v' && read_v(line, lnum, env) == 0)
-			return (0);
+		while (*line == ' ' || *line == '\t')
+			line++;
+		if (line[0] == 'v' && line[1] == ' ')
+			env->nb_vertex += 1;
 	}
+	env->vertex_tab = (t_vec3*)malloc(sizeof(t_vec3) * env->nb_vertex);
+	if (env->vertex_tab == NULL)
+		print_error1("malloc failded");
 	free(line);
-	return (read_v(NULL, 0, env));
 }
 
-int second_parse_obj(FILE *obj_file, t_env* env)
+void	second_parse_scene(FILE *obj_file, t_env *env)
 {
 	char	*line;
 	size_t	linecap;
@@ -66,20 +66,16 @@ int second_parse_obj(FILE *obj_file, t_env* env)
 	linecap = 10000;
 	lnum = 0;
 	while ((linelen = getline(&line, &linecap, obj_file)) > 0)
-	{	
+	{
 		lnum++;
-		if (line[0] == 'v' && stock_v(line, env) == 0)
-			return (print_error0("impossible to parse line",lnum));
-		else if ((line[0] == 'f' || line[0] == 'g' ) && parse_face(line, env) == 0)
-			return (print_error0("impossible to parse line",lnum));
-		else if (strcmp(line, "usemtl") == ' ' && stock_mtl(line, env, lnum) == 0)
-			return (print_error0("impossible to parse line",lnum));
-		else if (strcmp(line, "mtllib") == ' ' && read_mtl_lib(line, env) == 0)
-			return (print_error0("impossible to parse line",lnum));
+		if (line[0] == 'v' && line[1] == ' ' && stock_vertex(line, env) == 0)
+			print_error0("impossible to parse line", lnum);
+		else if (line[0] == 'v')
+			continue;
+		else if (parse_face(line, env) == 0)
+			print_error0("impossible to parse line", lnum);
 		else
 			continue;
 	}
-	free(line);
-	parse_face(NULL, env);
-	return (1);
+	free(line);;
 }

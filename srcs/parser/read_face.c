@@ -1,5 +1,12 @@
 #include "scop.h"
 
+void	attribute_val(t_face *ret, int a, int b, int c)
+{
+	ret->vertex[0] = a - 1;
+	ret->vertex[1] = b - 1;
+	ret->vertex[2] = c - 1;
+}
+
 t_face	*read_face(char *line, t_face_type type)
 {
 	if (type == face_v)

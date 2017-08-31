@@ -12,11 +12,22 @@
 
 #include "scop.h"
 
+t_obj *new_obj()
+{
+	t_obj	*ret;
+
+	if ((ret = (t_obj*)malloc(sizeof(t_obj))) == NULL)
+		print_error1("malloc failded");
+	memset(ret, 0, sizeof(t_obj));
+	return (ret);
+}
+
 t_cam *init_cam()
 {
     t_cam *ret;
 
-    ret = (t_cam*)malloc(sizeof(t_cam));
+    if ((ret = (t_cam*)malloc(sizeof(t_cam))) == NULL)
+		print_error1("malloc failded");
     ret->pos = init_vec3(0,0,2);
     ret->rot = init_vec3(0.0,0.0,0.0);
     ret->width = WIDTH;
@@ -24,7 +35,7 @@ t_cam *init_cam()
 	ret->fov = 45.0f / 180.0f * M_PI;
 	ret->ratio = ret->width / ret->height;
     ret->near = 0.1;
-    ret->far = 100.0;
+    ret->far = 1000.0;
     return ret;
 }
 
@@ -32,14 +43,12 @@ t_env   *init_world()
 {
     t_env *ret;
     
-    ret = (t_env*)malloc(sizeof(t_env));
+    if ((ret = (t_env*)malloc(sizeof(t_env))) == NULL)
+		print_error1("malloc failded");
     ret->camera = init_cam();
-	ret->first_obj = NULL;
-	ret->last_obj = NULL;
+	ret->obj = new_obj();
 	ret->nb_faces = 0;
-	ret->mat_tab = NULL;
-	ret->current_mat = NULL;
-	ret->nb_material = 0;
-
+	ret->nb_vertex = 0;
+	ret->vertex_tab = NULL;
     return (ret);
 }

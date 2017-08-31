@@ -1,19 +1,5 @@
 #include "scop.h"
 
-void	attribute_val_11(t_face *ret, int val[12])
-{
-	ret->vertex[0] = val[0] - 1;
-	ret->vertex[1] = val[1] - 1;
-	ret->vertex[2] = val[2] - 1;
-}
-
-void	attribute_val_12(t_face *ret, int val[12])
-{
-	ret->vertex[0] = val[0] - 1;
-	ret->vertex[1] = val[2] - 1;
-	ret->vertex[2] = val[3] - 1;
-}
-
 t_face	*create_face_1(int attr, int val[12], char is_first)
 {
 	t_face *ret;
@@ -22,9 +8,9 @@ t_face	*create_face_1(int attr, int val[12], char is_first)
 	ret->next = NULL;
 	ret->prev = NULL;
 	if (attr == 3 || (attr == 4 && is_first))
-		attribute_val_11(ret, val);
+		attribute_val(ret, val[0], val[1], val[2]);
 	else
-		attribute_val_12(ret, val);
+		attribute_val(ret, val[0] , val[2] , val[3]);
 	if (attr == 4 && is_first)
 	{
 		ret->next = create_face_1(attr, val, 0);

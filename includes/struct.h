@@ -92,15 +92,8 @@ typedef struct s_cam{
 typedef struct	s_vertex{
     t_vec3  pos;
     t_color Kd;
-	t_mat4	model;
-	GLchar	texture_index;
-	t_vec2	texture;
+	t_vec2	text;
 }				t_vertex;
-
-typedef struct	s_textured_vertex{
-    t_vec3 		pos;
-    GLfloat		text[2]; 
-	}			t_textured_vertex;
 
 enum e_vao_ids {
 	Triangles,
@@ -130,24 +123,17 @@ typedef enum	e_face_type{
 	face_v_t_n
 }				t_face_type;
 
-typedef struct	s_material
-{
-	char	*name;
-	char 	*map_Kd;
-	t_color	Kd;
-	t_color	Ks;
-	t_color	Ka;
-	GLfloat	Ns;
-}				t_material;
-
 typedef struct	s_face{
 	int				vertex[3];
-	int				normal[3];
-	int				texture[3];
 	struct	s_face	*next;
 	struct	s_face	*prev;
 	
 }				t_face;
+
+typedef	enum	e_text_type{
+	grey_scale,
+	texture
+}				t_texture_type;
 
 typedef struct s_obj{
     t_face			*first_face;
@@ -155,10 +141,13 @@ typedef struct s_obj{
     t_vec3  		pos;
     t_vec3  		rot;
 	GLuint			nb_faces;
-	t_face_type		f_type;
-	t_material		*material;
-	struct s_obj	*next;
-	struct s_obj	*prev;
+	GLfloat			xmin;
+	GLfloat			ymin;
+	GLfloat			zmin;
+	GLfloat			xmax;
+	GLfloat			ymax;
+	GLfloat			zmax;
+	t_texture_type	texture_type;		
 }           t_obj;
 
 typedef struct  s_env{
@@ -170,17 +159,9 @@ typedef struct  s_env{
 	GLuint			vaos[NumVAOs];
 	GLuint 			buffers[NumBuffers];
 	int				nb_vertex;
-	int				nb_texture;
-	int				nb_normal;
 	int				nb_faces;
 	t_vec3			*vertex_tab;
-	t_vec3			*normal_tab;
-	t_vec2			*texture_tab;
-	t_obj			*first_obj;
-	t_obj			*last_obj;
-	int				nb_material;
-	t_material		*mat_tab;
-	t_material		*current_mat;
+	t_obj			*obj;
 }               t_env;
 
 typedef struct s_key_input{

@@ -1,59 +1,27 @@
 #include "scop.h"
 
-void	push_face(t_face *face, t_obj *cur_obj)
+void	push_face(t_face *face, t_obj *obj)
 {
-	cur_obj->nb_faces++;
-	if (cur_obj->first_face == NULL)
+	obj->nb_faces += 1;
+	if (obj->first_face == NULL)
 	{
-		cur_obj->first_face = face;
-		cur_obj->last_face = face;
+		obj->first_face = face;
+		obj->last_face = face;
 	}
 	else
 	{
-		cur_obj->last_face->next = face;
-		face->prev = cur_obj->last_face;
+		obj->last_face->next = face;
+		face->prev = obj->last_face;
 	}
 	if (face->next == NULL)
 	{
-		cur_obj->last_face = face;
+		obj->last_face = face;
 	}
 	else
 	{
-		cur_obj->nb_faces++;
-		cur_obj->last_face = face->next;
+		obj->nb_faces++;
+		obj->last_face = face->next;
 	}
-}
-
-int		push_obj(t_obj *cur_obj, t_env *env)
-{
-	if (env->first_obj == NULL)
-		env->first_obj = cur_obj;
-	else
-	{
-		env->last_obj->next = cur_obj;
-		cur_obj->prev = env->last_obj;
-	}
-	if (cur_obj->next == NULL)
-		env->last_obj = cur_obj;
-	else
-		env->last_obj = cur_obj->next;
-	env->nb_faces += cur_obj->nb_faces;
-	return (1);
-}
-
-t_obj	*new_obj(t_env *env)
-{
-	t_obj	*ret;
-
-	ret = (t_obj*)malloc(sizeof(t_obj));
-	ret->next = NULL;
-	ret->prev = NULL;
-	ret->first_face = NULL;
-	ret->last_face = NULL;
-	ret->f_type = face_undefine;
-	ret->nb_faces = 0;
-	ret->material = env->current_mat;
-	return (ret);
 }
 
 t_face_type	read_face_format(char *line)
@@ -86,27 +54,21 @@ t_face_type	read_face_format(char *line)
 
 int		parse_face(char *line, t_env *env)
 {
-	static t_obj	*cur_obj = NULL;
+	static t_face_type	cur_face_type = face_undefine;
 	t_face			*face;
 
-	if (line == NULL)
-		return (push_obj(cur_obj, env));
-	else if (line[0] == 'g')
+	if (line[0] == 'g')
 	{
-		if (cur_obj != NULL)
-			push_obj(cur_obj, env);
-		cur_obj = new_obj(env);
+		cur_face_type = face_undefine;
 	}
-	else if (line[0] == 'f' && cur_obj == NULL)
-		cur_obj = new_obj(env);
 	else if (line[0] == 'f')
 	{
-		if (cur_obj->f_type == face_undefine && (cur_obj->f_type = read_face_format(line)) == face_undefine)
+		if (cur_face_type == face_undefine &&
+			(cur_face_type = read_face_format(line)) == face_undefine)
 			return (0);
-		if ((face = read_face(line, cur_obj->f_type)) == NULL)
+		if ((face = read_face(line, cur_face_type)) == NULL)
 			return (0);
-		else 
-			push_face(face, cur_obj);
+		push_face(face, env->obj);
 	}
 	return (1);
 }

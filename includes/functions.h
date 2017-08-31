@@ -15,8 +15,10 @@
 
 /* Functions */
 
-int	print_error0(char *str, int i);
-int	print_error1(char *str);
+void	print_error0(char *str, int i);
+void	print_error1(char *str);
+void print_vert(t_env *e);
+void print_face(t_env *e);
 
 t_env   *init_world();
 void    load_shader(t_env *e, const t_shader_info *s);
@@ -28,20 +30,17 @@ void	init_sdl(t_env *env);
 /* Parser */
 
 
-int		open_obj(int ac, char **av, t_env *env);
-int		first_parse_obj(FILE *obj_file, t_env* env);
-int		second_parse_obj(FILE *obj_file, t_env* env);
-int		create_vertex_tab(int v_num, int vt_num, int vn_num, t_env *env);
-int		stock_v(char *line, t_env *env);
+void	open_scene(int ac, char **av, t_env *env);
+void	first_parse_scene(FILE *obj_file, t_env* env);
+void	second_parse_scene(FILE *obj_file, t_env* env);
 int		parse_face(char *line, t_env *env);
-int		stock_mtl(char *line, t_env *env, int l);
-int		read_mtl_lib(char *line,t_env * env);
 int		second_parse_mtl(FILE *mtl_file, t_env *env);
 t_face	*read_face(char *line, t_face_type type);
 t_face	*read_face_1(char *line);
 t_face	*read_face_2(char *line);
 t_face	*read_face_3(char *line);
 t_face	*read_face_4(char *line);
+void	attribute_val(t_face *ret, int a, int b, int c);
 
 char	*clear_bn(char *line);
 
