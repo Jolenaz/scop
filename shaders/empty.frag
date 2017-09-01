@@ -5,9 +5,11 @@
 //   color = vec3(1,0,0);
 // }
 
-in vec4 color;
-out vec4 fColor;
+in vec4				color;
+out vec4			fColor;
+in vec2				UV;
+uniform sampler2D	myTextureSampler;
 void main()
 {
-	fColor = color;
+	fColor = texture( myTextureSampler, UV );
 }

@@ -12,17 +12,22 @@
 
 #include "scop.h"
 
-void calc_shader(t_env* env)
+void	calc_shader(t_env* env)
 {
 	t_mat4	View;
 	t_mat4	Proj;
-	t_mat4	VP;
-	GLint	VP_index;
+	t_mat4	WVP;
+	GLint	WVP_index;
+	t_mat4	World;
 
+	env->obj->pos.x = env->obj->xmin + (env->obj->xmax - env->obj->xmin) / 2.0;
+	env->obj->pos.y = env->obj->ymin + (env->obj->ymax - env->obj->ymin) / 2.0;
+	env->obj->pos.z = env->obj->zmin + (env->obj->zmax - env->obj->zmin) / 2.0;
+	World = mat_mult44(mat_rot_inv(env->obj->rot), mat_trans_inv(env->obj->pos));
 	View = mat_mult44(mat_rot_inv(env->camera->rot), mat_trans_inv(env->camera->pos));
 	env->camera->view_matrice = View;
 	Proj = mat_proj(env->camera);
-	VP = mat_mult44(Proj, View);
-	VP_index = glGetUniformLocation(env->program, "VP");
-	glUniformMatrix4fv(VP_index, 1, GL_FALSE,(const GLfloat *)&VP);
+	WVP = mat_mult44(Proj, mat_mult44(View, World));
+	WVP_index = glGetUniformLocation(env->program, "WVP");
+	glUniformMatrix4fv(WVP_index, 1, GL_FALSE,(const GLfloat *)&WVP);
 }

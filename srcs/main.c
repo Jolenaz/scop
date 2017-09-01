@@ -46,6 +46,7 @@ int		main_loop(t_env *env)
 	SDL_PumpEvents();
 	calc_shader(env);
 	draw(env);
+	env->obj->rot.y += 2;
 	if (SDL_PollEvent(&(env->evenements)))
 	{
 		if (env->evenements.key.keysym.sym == SDLK_c)
@@ -68,11 +69,16 @@ int		main(int ac, char **av)
 	env = init_world();
 	open_scene(ac, av, env);
 	init_sdl(env);
+		load_texture(env);
 	create_obj(env);
 	load_shader(env, shaders);
 	glUseProgram(env->program);
 	create_vap();
-
+	printf("x (%f, %f)\ny (%f %f)\nz (%f %f)\n",
+			env->obj->xmin, env->obj->xmax,
+			env->obj->ymin, env->obj->ymax,
+			env->obj->zmin, env->obj->zmax
+			);
 	while (main_loop(env))
 	{
 	}

@@ -38,7 +38,7 @@ t_face	*read_face_4(char *line)
 	int		val[12];
 	int		ret;
 
-	ret = scanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
+	ret = sscanf(line, "f %d/%d/%d %d/%d/%d %d/%d/%d %d/%d/%d",
 		&(val[0]), &(val[1]), &(val[2]), &(val[3]), &(val[4]),
 		&(val[5]), &(val[6]), &(val[7]), &(val[8]), &(val[9]),
 		&(val[10]), &(val[11]));
