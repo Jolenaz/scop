@@ -158,8 +158,7 @@ typedef struct  s_env{
 	GLuint			program;
 	GLuint			vaos[NumVAOs];
 	GLuint 			buffers[NumBuffers];
-	GLchar			*im_data;
-	GLuint			im_id;
+	float			delta;
 	int				nb_vertex;
 	int				nb_faces;
 	t_vec3			*vertex_tab;

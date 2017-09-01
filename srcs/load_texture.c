@@ -12,13 +12,15 @@
 
 #include "scop.h"
 
-void load_texture(t_env *env)
+void load_texture()
 {
 	unsigned char	header[138]; 
 	unsigned int	dataPos;
 	unsigned int	width, height;
 	unsigned int	imageSize;
 	unsigned int	im_id;
+	char			*data;
+
 	FILE * file = fopen("./scenes/materials/licorne.bmp","rb");
 	if (file == NULL)
 		print_error1("impossible d'ouvrir la texture.");
@@ -37,12 +39,12 @@ void load_texture(t_env *env)
 		height
 		);
 	imageSize = width * height * 3;
-	env->im_data = (char*)malloc(imageSize * sizeof(char));
-	fread(env->im_data,1,imageSize,file);
+	data = (char*)malloc(imageSize * sizeof(char));
+	fread(data,1,imageSize,file);
 	fclose(file);
 	glGenTextures(1, &im_id);
 	glBindTexture(GL_TEXTURE_2D, im_id);
-	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, env->im_data);
+	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }

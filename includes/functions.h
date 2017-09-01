@@ -21,7 +21,7 @@ void print_vert(t_env *e);
 void print_face(t_env *e);
 
 t_env   *init_world();
-void	load_texture(t_env *env);
+void	load_texture();
 void    load_shader(t_env *e, const t_shader_info *s);
 void	create_obj(t_env *e);
 void	calc_shader(t_env* env);

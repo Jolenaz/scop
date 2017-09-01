@@ -69,7 +69,7 @@ int		main(int ac, char **av)
 	env = init_world();
 	open_scene(ac, av, env);
 	init_sdl(env);
-		load_texture(env);
+	load_texture();
 	create_obj(env);
 	load_shader(env, shaders);
 	glUseProgram(env->program);

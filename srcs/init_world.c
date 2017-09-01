@@ -50,5 +50,6 @@ t_env   *init_world()
 	ret->nb_faces = 0;
 	ret->nb_vertex = 0;
 	ret->vertex_tab = NULL;
+	ret->delta = 0.1;
     return (ret);
 }
