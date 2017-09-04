@@ -1,26 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   define.h                                           :+:      :+:    :+:   */
+/*   matrice_4.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/18 15:05:18 by jbelless          #+#    #+#             */
-/*   Updated: 2017/07/18 15:05:32 by jbelless         ###   ########.fr       */
+/*   Created: 2017/09/04 11:02:54 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 11:02:56 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef DEFINE_H
-# define DEFINE_H
+#include "scop.h"
 
-# define NB_SHADERS 2
-# define BUFFER_OFFSET(i) ((char *)NULL + (i))
+t_vec3	init_vec3(float x, float y, float z)
+{
+	t_vec3 res;
 
-# define NB_INPUT 11
-
-# define WIDTH 640
-# define HEIGHT 480
-
-# define VIEW env->camera->view_matrice
-
-#endif
+	res.x = x;
+	res.y = y;
+	res.z = z;
+	return (res);
+}

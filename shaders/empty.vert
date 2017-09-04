@@ -6,11 +6,11 @@ uniform mat4			WVP;
 uniform	float			fcoef;
 out vec4				color;
 out	vec2				UV;
-out float				fdelta;
+out float				coef;
 
 void main(){
-	color = fColor;
-	coef = coef;
+	color = vColor;
+	coef = fcoef;
 	UV.x = vertexPosition_modelspace.x;
 	UV.y = vertexPosition_modelspace.y;
 	gl_Position = WVP * vec4(vertexPosition_modelspace,1);

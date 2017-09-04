@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_face.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/04 11:51:10 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 11:51:12 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
-void	push_face(t_face *face, t_obj *obj)
+void		push_face(t_face *face, t_obj *obj)
 {
 	obj->nb_faces += 1;
 	if (obj->first_face == NULL)
@@ -52,10 +64,10 @@ t_face_type	read_face_format(char *line)
 	return (face_undefine);
 }
 
-int		parse_face(char *line, t_env *env)
+int			parse_face(char *line, t_env *env)
 {
 	static t_face_type	cur_face_type = face_undefine;
-	t_face			*face;
+	t_face				*face;
 
 	if (line[0] == 'g')
 		cur_face_type = face_undefine;

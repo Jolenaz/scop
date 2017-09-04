@@ -12,7 +12,7 @@
 
 #include "scop.h"
 
-void stock_min_max(t_vec3 vec, t_obj *obj)
+void	stock_min_max(t_vec3 vec, t_obj *obj)
 {
 	obj->xmin = vec.x < obj->xmin ? vec.x : obj->xmin;
 	obj->xmax = vec.x > obj->xmax ? vec.x : obj->xmax;
@@ -22,7 +22,7 @@ void stock_min_max(t_vec3 vec, t_obj *obj)
 	obj->zmax = vec.z > obj->zmax ? vec.z : obj->zmax;
 }
 
-int stock_vertex(char *line, t_env *env)
+int		stock_vertex(char *line, t_env *env)
 {
 	static int	v_num = 0;
 	int			ret;
@@ -32,8 +32,7 @@ int stock_vertex(char *line, t_env *env)
 		"v %f %f %f",
 		&(env->vertex_tab[v_num].x),
 		&(env->vertex_tab[v_num].y),
-		&(env->vertex_tab[v_num].z)
-	);
+		&(env->vertex_tab[v_num].z));
 	stock_min_max(env->vertex_tab[v_num], env->obj);
 	if (ret < 3)
 		return (0);
@@ -81,7 +80,8 @@ void	second_parse_scene(FILE *obj_file, t_env *env)
 		lnum++;
 		if (*line == '#' || *line == '\n')
 			continue;
-		else if (line[0] == 'v' && line[1] == ' ' && stock_vertex(line, env) == 0)
+		else if (line[0] == 'v' &&
+			line[1] == ' ' && stock_vertex(line, env) == 0)
 			print_error0("er101 impossible to parse line", lnum);
 		else if (line[0] == 'v')
 			continue;
@@ -90,5 +90,5 @@ void	second_parse_scene(FILE *obj_file, t_env *env)
 		else
 			continue;
 	}
-	free(line);;
+	free(line);
 }

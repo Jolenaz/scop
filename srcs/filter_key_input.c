@@ -14,9 +14,9 @@
 
 void	translate(t_env *env)
 {
-	const t_vec3 dir= {VIEW._20, VIEW._21,VIEW._22};
-	const t_vec3 right= {VIEW._00, VIEW._01,VIEW._02};
-	const t_vec3 up = {0.0,1.0,0.0};
+	const t_vec3 dir = {VIEW.m20, VIEW.m21, VIEW.m22};
+	const t_vec3 right = {VIEW.m00, VIEW.m01, VIEW.m02};
+	const t_vec3 up = {0.0, 1.0, 0.0};
 
 	if (env->evenements.key.keysym.sym == SDLK_s)
 		translate_vec3(&(env->camera->pos), normalise_vec3(dir), 0.1f);
@@ -44,10 +44,11 @@ void	rotate(t_env *env)
 		env->camera->rot.y += 2;
 }
 
-void	tamere(t_env *env)
+void	swap_text(t_env *env)
 {
-	if (env->evenements.key.repeat == 0 && env->evenements.key.type == SDL_KEYDOWN)
-		printMat4(VIEW);
+	if (env->evenements.key.repeat == 0 &&
+	env->evenements.key.type == SDL_KEYDOWN)
+		env->delta *= -1;
 }
 
 const	t_key_input g_tab_input[NB_INPUT] = {
@@ -61,7 +62,7 @@ const	t_key_input g_tab_input[NB_INPUT] = {
 	{SDLK_RIGHT, &rotate },
 	{SDLK_DOWN, &rotate },
 	{SDLK_LEFT, &rotate },
-	{SDLK_t, &tamere}
+	{SDLK_t, &swap_text}
 };
 
 void	filter_key_input(t_env *env)

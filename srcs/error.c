@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   error.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/04 11:59:59 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 12:00:01 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
 void	print_error0(char *str, int i)
@@ -12,26 +24,33 @@ void	print_error1(char *str)
 	exit(EXIT_FAILURE);
 }
 
-void print_vert(t_env *e)
+void	print_vert(t_env *e)
 {
-	int i = 0;
+	int i;
 
-	while(i < e->nb_vertex)
+	i = 0;
+	while (i < e->nb_vertex)
 	{
-		printf("vert %d : %f %f %f\n", i, e->vertex_tab[i].x, e->vertex_tab[i].y ,e->vertex_tab[i].z);
+		printf("vert %d : %f %f %f\n",
+		i,
+		e->vertex_tab[i].x,
+		e->vertex_tab[i].y,
+		e->vertex_tab[i].z);
 		i++;
 	}
 }
 
-void print_face(t_env *e)
+void	print_face(t_env *e)
 {
 	t_face *face;
 
 	face = e->obj->first_face;
-
-	while(face)
+	while (face)
 	{
-		printf("face : %d %d %d\n", face->vertex[0], face->vertex[1], face->vertex[2]);
+		printf("face : %d %d %d\n",
+		face->vertex[0],
+		face->vertex[1],
+		face->vertex[2]);
 		face = face->next;
 	}
 }

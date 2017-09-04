@@ -12,39 +12,28 @@
 
 #include "scop.h"
 
-void load_texture()
+void	load_texture(void)
 {
-	unsigned char	header[138]; 
-	unsigned int	dataPos;
-	unsigned int	width, height;
-	unsigned int	imageSize;
-	unsigned int	im_id;
+	unsigned char	header[138];
+	t_text_info		info;
 	char			*data;
+	FILE			*file;
 
-	FILE * file = fopen("./scenes/materials/licorne.bmp","rb");
+	file = fopen("./scenes/materials/licorne.bmp", "rb");
 	if (file == NULL)
 		print_error1("impossible d'ouvrir la texture.");
-	if ( fread(header, 1, 138, file)!=138 ){ 
-    	printf("Not a correct BMP file\n");
-    	return;
-	}
-	dataPos    = *(int*)&(header[0x0A]);
-	imageSize  = *(int*)&(header[0x02]);
-	width      = *(int*)&(header[0x12]);
-	height     = *(int*)&(header[0x16]);
-	printf("data pose = %d\nimagesize = %d\nwidth = %d\nheight = %d\n",
-		dataPos,
-		imageSize,
-		width,
-		height
-		);
-	imageSize = width * height * 3;
-	data = (char*)malloc(imageSize * sizeof(char));
-	fread(data,1,imageSize,file);
+	fread(header, 1, 138, file);
+	info.data_pos = *(int*)&(header[0x0A]);
+	info.width = *(int*)&(header[0x12]);
+	info.height = *(int*)&(header[0x16]);
+	info.image_size = info.width * info.height * 3;
+	data = (char*)malloc(info.image_size * sizeof(char));
+	fread(data, 1, info.image_size, file);
 	fclose(file);
-	glGenTextures(1, &im_id);
-	glBindTexture(GL_TEXTURE_2D, im_id);
-	glTexImage2D(GL_TEXTURE_2D, 0,GL_RGB, width, height, 0, GL_BGR, GL_UNSIGNED_BYTE, data);
+	glGenTextures(1, &(info.im_id));
+	glBindTexture(GL_TEXTURE_2D, info.im_id);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, info.width, info.height,
+	0, GL_BGR, GL_UNSIGNED_BYTE, data);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 }

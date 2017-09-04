@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_face_4.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/04 11:50:57 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 11:50:59 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
 void	attribute_val_41(t_face *ret, int val[12])
@@ -20,9 +32,9 @@ t_face	*create_face_4(int attr, int val[12], char is_first)
 
 	ret = (t_face*)malloc(sizeof(t_face));
 	if (attr == 9 || (attr == 12 && is_first))
-		attribute_val(ret, val[0] , val[3] , val[6]);
+		attribute_val(ret, val[0], val[3], val[6]);
 	else
-		attribute_val(ret, val[0] , val[6] , val[9]);
+		attribute_val(ret, val[0], val[6], val[9]);
 	ret->next = NULL;
 	ret->prev = NULL;
 	if (attr == 9 && is_first)

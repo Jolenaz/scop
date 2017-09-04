@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   open_scene.c                                         :+:      :+:    :+:   */
+/*   open_scene.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/07/26 15:00:39 by jbelless          #+#    #+#             */
-/*   Updated: 2017/07/26 15:00:42 by jbelless         ###   ########.fr       */
+/*   Created: 2017/09/04 12:10:50 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 12:10:52 by jbelless         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ FILE	*check_av(char **av)
 
 	if ((obj_file = fopen(av[1], "r")) == NULL)
 		print_error1("le fichier passer en argument est introuvable\n");
-	if( av[1] + strlen(av[1]) - strstr(av[1], ".obj") != 4)
+	if (av[1] + strlen(av[1]) - strstr(av[1], ".obj") != 4)
 		print_error1("le fichier passer en argument doit être un .obj\n");
 	return (obj_file);
 }

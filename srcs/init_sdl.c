@@ -32,19 +32,17 @@ void	init_sdl(t_env *env)
 		fprintf(stderr, "Error: chargement de SDL");
 		return ;
 	}
-	env->mainWindow = SDL_CreateWindow("une fenetre",
+	env->main_window = SDL_CreateWindow("une fenetre",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
 		WIDTH,
 		HEIGHT,
 		SDL_WINDOW_SHOWN | SDL_WINDOW_OPENGL);
 	init_sdl_attribute();
-	env->mainContext = SDL_GL_CreateContext(env->mainWindow);
+	env->main_context = SDL_GL_CreateContext(env->main_window);
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
-
 	glEnable(GL_CULL_FACE);
 	glCullFace(GL_BACK);
-
 	glEnable(GL_TEXTURE_2D);
 }

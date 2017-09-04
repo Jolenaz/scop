@@ -15,6 +15,7 @@ RM = rm -rf
 SRC_PATH = ./srcs/
 OBJ_PATH = ./objs/
 PAR_PATH = ./objs/parser
+MAT_PATH = ./objs/calc_matrix
 INC_PATH = ./includes/
 
 #===========#
@@ -56,7 +57,11 @@ SRC_NAME = main.c	\
 			load_texture.c	\
 			load_shader.c	\
 			create_obj.c	\
-			matrice.c		\
+			calc_matrix/matrice.c		\
+			calc_matrix/matrice_1.c		\
+			calc_matrix/matrice_2.c		\
+			calc_matrix/matrice_3.c		\
+			calc_matrix/matrice_4.c		\
 			calc_shader.c	\
 			filter_key_input.c	\
 			init_sdl.c	\
@@ -94,6 +99,7 @@ $(OBJ_PATH):
 	@$(call put_title,Linking)
 	@mkdir -p $(OBJ_PATH)
 	@mkdir -p $(PAR_PATH)
+	@mkdir -p $(MAT_PATH)
 
 #	Object Compiation
 $(NAME): $(OBJ_PATH) $(OBJ)

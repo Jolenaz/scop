@@ -13,55 +13,71 @@
 #ifndef STRUCT_H
 # define STRUCT_H
 
-typedef struct s_vec2{
-    GLfloat x;
-    GLfloat y;
-}               t_vec2;
+typedef struct	s_text_info{
+	unsigned int	data_pos;
+	unsigned int	width;
+	unsigned int	height;
+	unsigned int	image_size;
+	unsigned int	im_id;
+}				t_text_info;
 
-typedef struct s_mat2{
-    GLfloat _00;
-    GLfloat _01;
-    GLfloat _10;
-    GLfloat _11;
-}               t_mat2;
+typedef struct	s_trigo{
+	float	cos_x;
+	float	sin_x;
+	float	cos_y;
+	float	sin_y;
+	float	cos_z;
+	float	sin_z;
+}				t_trigo;
 
-typedef struct s_mat3{
-    GLfloat _00;
-    GLfloat _01;
-    GLfloat _02;
-    GLfloat _10;
-    GLfloat _11;
-    GLfloat _12;
-    GLfloat _20;
-    GLfloat _21;
-    GLfloat _22;
-}               t_mat3;
+typedef struct	s_vec2{
+	GLfloat x;
+	GLfloat y;
+}				t_vec2;
 
-typedef struct s_mat4{
-    GLfloat _00;
-    GLfloat _10;
-    GLfloat _20;
-    GLfloat _30;
-	GLfloat _01;
-    GLfloat _11;
-    GLfloat _21;
-    GLfloat _31;
-	GLfloat _02;
-    GLfloat _12;
-    GLfloat _22;
-    GLfloat _32;
-	GLfloat _03;
-    GLfloat _13;
-    GLfloat _23;
-    GLfloat _33;
+typedef struct	s_mat2{
+	GLfloat m00;
+	GLfloat m01;
+	GLfloat m10;
+	GLfloat m11;
+}				t_mat2;
 
-}               t_mat4;
+typedef struct	s_mat3{
+	GLfloat m00;
+	GLfloat m01;
+	GLfloat m02;
+	GLfloat m10;
+	GLfloat m11;
+	GLfloat m12;
+	GLfloat m20;
+	GLfloat m21;
+	GLfloat m22;
+}				t_mat3;
 
-typedef struct  s_vec3{
-    GLfloat x;
-    GLfloat y;
-    GLfloat z;
-}               t_vec3;
+typedef struct	s_mat4{
+	GLfloat m00;
+	GLfloat m10;
+	GLfloat m20;
+	GLfloat m30;
+	GLfloat m01;
+	GLfloat m11;
+	GLfloat m21;
+	GLfloat m31;
+	GLfloat m02;
+	GLfloat m12;
+	GLfloat m22;
+	GLfloat m32;
+	GLfloat m03;
+	GLfloat m13;
+	GLfloat m23;
+	GLfloat m33;
+}				t_mat4;
+
+typedef struct	s_vec3{
+	GLfloat x;
+	GLfloat y;
+	GLfloat z;
+}				t_vec3;
 
 typedef struct	s_vec4{
 	GLfloat x;
@@ -70,49 +86,49 @@ typedef struct	s_vec4{
 	GLfloat w;
 }				t_vec4;
 
-typedef struct  s_color{
-    GLubyte r;
-    GLubyte g;
-    GLubyte b;
-    GLubyte a;
-}               t_color;
+typedef struct	s_color{
+	GLubyte r;
+	GLubyte g;
+	GLubyte b;
+	GLubyte a;
+}				t_color;
 
-typedef struct s_cam{
-    t_vec3  	pos;
-    t_vec3  	rot;
-    GLfloat		width;
-    GLfloat		height;
-	GLfloat		ratio;
-    GLfloat		near;
-    GLfloat		far;
-    GLfloat		fov;
-	t_mat4		view_matrice;
-}               t_cam;
+typedef struct	s_cam{
+	t_vec3	pos;
+	t_vec3	rot;
+	GLfloat	width;
+	GLfloat	height;
+	GLfloat	ratio;
+	GLfloat	near;
+	GLfloat	far;
+	GLfloat	fov;
+	t_mat4	view_matrice;
+}				t_cam;
 
 typedef struct	s_vertex{
-    t_vec3  pos;
-    t_color Kd;
+	t_vec3	pos;
+	t_color	kd;
 	t_vec2	text;
 }				t_vertex;
 
-enum e_vao_ids {
+enum	e_vao_ids{
 	Triangles,
-	NumVAOs 
-	};
+	NumVAOs
+};
 
-enum e_buffer_ids {
+enum	e_buffer_ids{
 	ArrayBuffer,
 	NumBuffers
-	};
+};
 
-enum e_attrib_ids {
+enum	e_attrib_ids{
 	vPosition = 0,
 	vColor = 1
-	};
+};
 
-typedef struct s_shader_info{
+typedef struct	s_shader_info{
 	GLenum	flag;
-	GLchar*	addr;
+	GLchar	*addr;
 }				t_shader_info;
 
 typedef enum	e_face_type{
@@ -125,9 +141,8 @@ typedef enum	e_face_type{
 
 typedef struct	s_face{
 	int				vertex[3];
-	struct	s_face	*next;
-	struct	s_face	*prev;
-	
+	struct s_face	*next;
+	struct s_face	*prev;
 }				t_face;
 
 typedef	enum	e_text_type{
@@ -135,11 +150,11 @@ typedef	enum	e_text_type{
 	texture
 }				t_texture_type;
 
-typedef struct s_obj{
-    t_face			*first_face;
-    t_face			*last_face;
-    t_vec3  		pos;
-    t_vec3  		rot;
+typedef struct	s_obj{
+	t_face			*first_face;
+	t_face			*last_face;
+	t_vec3			pos;
+	t_vec3			rot;
 	GLuint			nb_faces;
 	GLfloat			xmin;
 	GLfloat			ymin;
@@ -147,25 +162,25 @@ typedef struct s_obj{
 	GLfloat			xmax;
 	GLfloat			ymax;
 	GLfloat			zmax;
-	t_texture_type	texture_type;		
-}           t_obj;
+	t_texture_type	texture_type;
+}				t_obj;
 
-typedef struct  s_env{
-    t_cam           *camera;
-    SDL_Window      *mainWindow;
-    SDL_GLContext   mainContext;
-    SDL_Event       evenements;
+typedef struct	s_env{
+	t_cam			*camera;
+	SDL_Window		*main_window;
+	SDL_GLContext	main_context;
+	SDL_Event		evenements;
 	GLuint			program;
 	GLuint			vaos[NumVAOs];
-	GLuint 			buffers[NumBuffers];
+	GLuint			buffers[NumBuffers];
 	float			delta;
 	int				nb_vertex;
 	int				nb_faces;
 	t_vec3			*vertex_tab;
 	t_obj			*obj;
-}               t_env;
+}				t_env;
 
-typedef struct s_key_input{
+typedef struct	s_key_input{
 	int		keycode;
 	void	(*f)(t_env *env);
 }				t_key_input;

@@ -1,10 +1,24 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_face.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/04 11:45:30 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 11:45:33 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
-void	attribute_val(t_face *ret, int a, int b, int c)
+void	attribute_val(t_face *face, int a, int b, int c)
 {
-	ret->vertex[0] = a - 1;
-	ret->vertex[1] = b - 1;
-	ret->vertex[2] = c - 1;
+	face->vertex[0] = a - 1;
+	face->vertex[1] = b - 1;
+	face->vertex[2] = c - 1;
+	if (a <= 0 || b <= 0 || c <= 0)
+		print_error1("Error : bad face indice");
 }
 
 t_face	*read_face(char *line, t_face_type type)

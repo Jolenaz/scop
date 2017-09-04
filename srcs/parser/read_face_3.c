@@ -1,13 +1,25 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_face_3.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/04 11:50:51 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 11:50:52 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
-void	attribute_val_31(t_face *ret, int val[12])
+void	attribute_valm31(t_face *ret, int val[12])
 {
 	ret->vertex[0] = val[0] - 1;
 	ret->vertex[1] = val[2] - 1;
 	ret->vertex[2] = val[4] - 1;
 }
 
-void	attribute_val_32(t_face *ret, int val[12])
+void	attribute_valm32(t_face *ret, int val[12])
 {
 	ret->vertex[0] = val[0] - 1;
 	ret->vertex[1] = val[4] - 1;
@@ -20,9 +32,9 @@ t_face	*create_face_3(int attr, int val[12], char is_first)
 
 	ret = (t_face*)malloc(sizeof(t_face));
 	if (attr == 6 || (attr == 8 && is_first))
-		attribute_val(ret, val[0] , val[2] , val[4]);
+		attribute_val(ret, val[0], val[2], val[4]);
 	else
-		attribute_val(ret, val[0] , val[4] , val[6]);
+		attribute_val(ret, val[0], val[4], val[6]);
 	ret->next = NULL;
 	ret->prev = NULL;
 	if (attr == 6 && is_first)

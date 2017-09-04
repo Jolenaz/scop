@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   read_face_1.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jbelless <jbelless@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/09/04 11:46:03 by jbelless          #+#    #+#             */
+/*   Updated: 2017/09/04 11:46:06 by jbelless         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "scop.h"
 
 t_face	*create_face_1(int attr, int val[12], char is_first)
@@ -10,7 +22,7 @@ t_face	*create_face_1(int attr, int val[12], char is_first)
 	if (attr == 3 || (attr == 4 && is_first))
 		attribute_val(ret, val[0], val[1], val[2]);
 	else
-		attribute_val(ret, val[0] , val[2] , val[3]);
+		attribute_val(ret, val[0], val[2], val[3]);
 	if (attr == 4 && is_first)
 	{
 		ret->next = create_face_1(attr, val, 0);

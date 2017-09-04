@@ -38,7 +38,7 @@ void	draw(t_env *env)
 	glDrawArrays(GL_TRIANGLES, 0, env->obj->nb_faces * 3);
 	glDisableVertexAttribArray(0);
 	glDisableVertexAttribArray(1);
-	SDL_GL_SwapWindow(env->mainWindow);
+	SDL_GL_SwapWindow(env->main_window);
 }
 
 int		main_loop(t_env *env)
@@ -74,11 +74,6 @@ int		main(int ac, char **av)
 	load_shader(env, shaders);
 	glUseProgram(env->program);
 	create_vap();
-	printf("x (%f, %f)\ny (%f %f)\nz (%f %f)\n",
-			env->obj->xmin, env->obj->xmax,
-			env->obj->ymin, env->obj->ymax,
-			env->obj->zmin, env->obj->zmax
-			);
 	while (main_loop(env))
 	{
 	}

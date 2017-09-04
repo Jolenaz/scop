@@ -12,24 +12,37 @@
 
 #include "scop.h"
 
-const GLchar *load_shader_source(const char *filename, GLint *size_source) {
-	FILE *file;
+const GLchar	*load_shader_source(const char *filename, GLint *size_source)
+{
+	FILE	*file;
+	size_t	size;
+	GLchar	*shader_source;
 
 	if ((file = fopen(filename, "r")) == NULL)
-		return NULL;
+		return (NULL);
 	fseek(file, 0L, SEEK_END);
-	size_t size = ftell(file);
-	GLchar *shaderSource = (GLchar*)malloc(sizeof(GLchar) * size);
+	size = ftell(file);
+	shader_source = (GLchar*)malloc(sizeof(GLchar) * size);
 	rewind(file);
-	fread(shaderSource, size, sizeof(char), file);
+	fread(shader_source, size, sizeof(char), file);
 	fclose(file);
 	*size_source = (GLint)size;
-	return shaderSource;
+	return (shader_source);
 }
 
-void load_shader(t_env *e, const t_shader_info *si)
+void			print_error_shader(GLint current_shader,
+					GLint compilation_return)
 {
-	const GLchar	*current_shaders_code; 
+	GLchar buf[10000];
+
+	glGetShaderiv(current_shader, GL_INFO_LOG_LENGTH, &compilation_return);
+	glGetShaderInfoLog(current_shader, 10000, &compilation_return, buf);
+	printf("%s\n", buf);
+}
+
+void			load_shader(t_env *e, const t_shader_info *si)
+{
+	const GLchar	*current_shaders_code;
 	GLint			size_source;
 	GLint			current_shader;
 	GLint			compilation_return;
@@ -37,7 +50,7 @@ void load_shader(t_env *e, const t_shader_info *si)
 
 	i = 0;
 	e->program = glCreateProgram();
-	while(i < NB_SHADERS)
+	while (i < NB_SHADERS)
 	{
 		current_shader = glCreateShader(si[i].flag);
 		current_shaders_code = load_shader_source(si[i].addr, &size_source);
@@ -45,12 +58,7 @@ void load_shader(t_env *e, const t_shader_info *si)
 		glCompileShader(current_shader);
 		glGetShaderiv(current_shader, GL_COMPILE_STATUS, &compilation_return);
 		if (compilation_return == 0)
-		{
-			GLchar buf[10000];
-			glGetShaderiv(current_shader, GL_INFO_LOG_LENGTH, &compilation_return);
-			glGetShaderInfoLog(current_shader,10000, &compilation_return, buf);
-			printf("%s\n",buf);
-		}
+			print_error_shader(current_shader, compilation_return);
 		glAttachShader(e->program, current_shader);
 		++i;
 		free((void*)current_shaders_code);
